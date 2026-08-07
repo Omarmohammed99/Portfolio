@@ -8,9 +8,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <!-- Official Fonts from the Template -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,8 +87,8 @@
 
         .tilt-card:hover {
             transform: perspective(1200px) rotateX(3deg) rotateY(-4deg) translateY(-6px);
-            box-shadow: 0 12px 45px -12px rgba(52, 211, 153, 0.4);
-            border-color: rgba(52, 211, 153, 0.4);
+            box-shadow: 0 12px 45px -12px rgba(34, 211, 238, 0.2);
+            border-color: rgba(34, 211, 238, 0.3);
         }
 
         .neon-text-cyan {
@@ -111,7 +108,7 @@
         }
 
         .heading-glow {
-            color: rgba(255, 255, 255, 0.95);
+            color: rgba(255, 255, 255, 1);
             text-shadow: 0 2px 15px rgba(255, 255, 255, 0.15);
         }
 
@@ -171,8 +168,9 @@
                     Available for AI roles
                 </span>
 
-                <h1 class="mt-8 text-5xl leading-[1.05] font-bold font-display sm:text-7xl heading-glow">
-                    Omar Mohamed
+                <!-- Name Title (White & Cyan) -->
+                <h1 class="mt-8 text-5xl leading-[1.05] font-bold font-display sm:text-7xl">
+                    <span class="text-white">Omar Mohamed</span>
                     <br />
                     <span class="neon-text-cyan">Ibrahim</span>
                 </h1>
@@ -205,7 +203,7 @@
                         Get In Touch
                     </a>
                     <a href="#projects" class="inline-flex items-center gap-2 rounded-full border border-[#34d399]/50 px-7 py-3.5 text-sm font-bold font-display text-[#34d399] transition-colors hover:bg-[#34d399]/10">
-                        <!-- STANDARD OUTLINE ROCKET EXACTLY AS REQUESTED -->
+                        <!-- OUTLINE ROCKET -->
                         <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 3.81-12.56l4.63 4.63C20.66 7.42 22 10.82 22 14c0 3.27-1.4 6.06-3.8 8.04-1.92 1.54-5.26 1.76-7.86-.33l-5.6-5.6c-2.09-2.6-1.87-5.94-.33-7.86C6.4 5.86 9.17 4.46 12 4.46c2.72 0 5.6 1.05 7.84 3.01Z"/><path d="M12 15V4.46"/></svg>
                         View Projects
                     </a>
@@ -238,7 +236,6 @@
                     <div class="absolute inset-6 rounded-full border border-[#22d3ee]/20"></div>
                     <div class="absolute inset-10 rounded-full opacity-60 blur-[40px]" style="background: linear-gradient(120deg, #22d3ee, #34d399);"></div>
                     <div class="animate-float relative h-[15rem] w-[15rem] overflow-hidden rounded-full border border-[#22d3ee]/40 shadow-[0_0_40px_rgba(34,211,238,0.3)] sm:h-[18rem] sm:w-[18rem]">
-                        <!-- FIX: Changed to object-center for perfect centering matching the provided photo -->
                         <img src="WhatsApp Image 2026-07-29 at 8.24.50 AM.jpeg" alt="Omar Mohamed Ibrahim" class="h-full w-full object-cover object-center" />
                     </div>
                 </div>
@@ -253,9 +250,9 @@
         </h2>
 
         <div class="mt-8 grid gap-5 md:grid-cols-2">
-            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
+            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <div class="flex items-center gap-3">
-                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#22d3ee]/15 text-[#22d3ee]">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#22d3ee]/10 text-[#22d3ee]">
                         <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                     </span>
                     <div>
@@ -267,9 +264,9 @@
                 </div>
             </article>
 
-            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#34d399]/40">
+            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#34d399]/40">
                 <div class="flex items-center gap-3">
-                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#34d399]/15 text-[#34d399]">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#34d399]/10 text-[#34d399]">
                         <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                     </span>
                     <div>
@@ -280,11 +277,11 @@
                     </div>
                 </div>
                 <div class="mt-5 flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Python</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Power BI</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">EDA</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">ETL Pipelines</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Data Analysis</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Python</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Power BI</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">EDA</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">ETL Pipelines</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Data Analysis</span>
                 </div>
             </article>
         </div>
@@ -297,63 +294,75 @@
         </h2>
 
         <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Languages & Databases</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Languages & Databases</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Python</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">R</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">SQL (MySQL)</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">MS SQL Server</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Python</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">R</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">SQL (MySQL)</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">MS SQL Server</span>
                 </div>
             </div>
             
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">ML & Deep Learning</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">ML & Deep Learning</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Predictive Modeling</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">CNN / RNN / LSTM</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Feature Engineering</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Transfer Learning</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Predictive Modeling</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Feature Engineering</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Regression</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Classification</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">CNN</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">RNN</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">LSTM</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Transfer Learning</span>
                 </div>
             </div>
             
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Computer Vision & NLP</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Computer Vision & NLP</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Object Detection (YOLO)</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">LLM Integration</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Sentiment Analysis</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Object Detection (YOLO)</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Image Segmentation</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Sentiment Analysis</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Prompt Engineering</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">LLM Integration</span>
                 </div>
             </div>
 
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Libraries & Frameworks</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Libraries & Frameworks</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">scikit-learn</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">TensorFlow</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">OpenCV</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Pandas / NumPy</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">scikit-learn</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">TensorFlow</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">OpenCV</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Pandas</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">NumPy</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Matplotlib</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Seaborn</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">BeautifulSoup</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Selenium</span>
                 </div>
             </div>
 
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Deployment & Tools</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Deployment & Tools</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Flask</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Streamlit</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Docker</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Hugging Face</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Git</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Flask</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Streamlit</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Hugging Face</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Git</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Docker</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Vercel</span>
                 </div>
             </div>
 
-            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-[#22d3ee]/40">
-                <h3 class="font-mono text-xs tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Data Analytics & BI</h3>
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
+                <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Data Analytics & BI</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Data Wrangling</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">ETL Pipelines</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Power BI</span>
-                    <span class="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Tableau</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Data Wrangling</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">ETL Pipelines</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Power BI</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Tableau</span>
                 </div>
             </div>
         </div>
@@ -376,27 +385,25 @@
                     Flagship
                 </div>
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
                         <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">Flagship / Graduation Project</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Sentinel AI</h3>
                     <p class="text-xs leading-relaxed line-clamp-3 mb-5 text-slate-400">End-to-end traffic accident detection & automated incident reporting with MobileNet + LSTM and Gemini Flash VLM reasoning.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <!-- EXACT TAGS FOR SENTINEL AI -->
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">MobileNet</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">LSTM</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Gemini</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Flask</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Docker</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">MobileNet</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">LSTM</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Gemini</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Flask</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Docker</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
-                    <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#34d399]">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
+                    <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         Explore
                     </button>
-                    <!-- Exact GitHub SVG for Projects -->
                     <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -407,20 +414,20 @@
             <!-- 2. Brain Tumor -->
             <div class="reveal glass tilt-card project-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
                         <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><path d="M9.5 2h5"/><path d="M16.4 5.3a9 9 0 0 1 1.6 6.7M7.6 5.3A9 9 0 0 0 6 12M12 2v20"/><path d="M5 22h14"/><path d="M19 12A7 7 0 0 0 5 12"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">Deep Learning & CV</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Brain Tumor Detection System</h3>
                     <p class="text-xs leading-relaxed mb-5 line-clamp-3 text-slate-400">MRI scan classification app with 98% accuracy and 100% recall for medical safety, deployed as a Flask web app.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">CNN</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">TensorFlow</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Flask</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">OpenCV</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">CNN</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">TensorFlow</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Flask</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">OpenCV</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Brain-Tumor-Detection-Web-App" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -431,20 +438,21 @@
             <!-- 3. Smart Mask -->
             <div class="reveal glass tilt-card project-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
-                        <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M9 12h6"/><path d="M9 9h6"/><path d="M9 15h6"/></svg>
+                    <!-- Bounding box face icon matching the image -->
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
+                        <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">Computer Vision & IoT</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Smart Mask Detection & Robotic Arm System</h3>
                     <p class="text-xs leading-relaxed mb-5 line-clamp-3 text-slate-400">Real-time OpenCV and fine-tuned MobileNetV2 face mask detection (<50ms latency) integrated with a robotic arm setup.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">MobileNetV2</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">OpenCV</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">IoT</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Real-time</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">MobileNetV2</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">OpenCV</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">IoT</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Real-time</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Face-and-Mask-Detector" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -455,20 +463,21 @@
             <!-- 4. Global Education -->
             <div class="reveal glass tilt-card project-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
+                    <!-- Globe matching the image -->
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
                         <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">EDA & Data Analytics (ETL)</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Global Education & Economy Analysis</h3>
                     <p class="text-xs leading-relaxed mb-5 line-clamp-3 text-slate-400">Cleaned and merged 10,000+ records across 190+ countries surfacing literacy-to-GDP correlations.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Pandas</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Streamlit</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Plotly</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">ETL</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Pandas</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Streamlit</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Plotly</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">ETL</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/How-Education-Drives-Economic-Growth" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -479,20 +488,20 @@
             <!-- 5. DL Insights Engine -->
             <div class="reveal glass tilt-card project-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
                         <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">NLP & Sentiment Analysis</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Deep Learning Customer Insights Engine</h3>
                     <p class="text-xs leading-relaxed mb-5 line-clamp-3 text-slate-400">Text polarity classification app comparing a LinearSVC pipeline against a Bidirectional LSTM on IMDb reviews.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">NLP</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">LinearSVC</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">BiLSTM</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">scikit-learn</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">NLP</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">LinearSVC</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">BiLSTM</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">scikit-learn</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Deep-Learning-Customer-Insights-Engine" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -503,19 +512,20 @@
             <!-- 6. Human Activity -->
             <div class="reveal glass tilt-card project-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
-                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-white/10 bg-gradient-to-br from-[#22d3ee]/15 to-[#34d399]/10">
+                    <!-- Pulse Activity icon matching the image -->
+                    <div class="h-32 mb-5 rounded-xl flex items-center justify-center border border-[#22d3ee]/20 bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
                         <svg class="svg-icon w-10 h-10 text-[#22d3ee] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     </div>
                     <h4 class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] mb-2 text-[#34d399]">Sensor AI & Streamlit</h4>
                     <h3 class="text-base font-bold font-display text-white mb-2">Human Activity Recognition</h3>
                     <p class="text-xs leading-relaxed mb-5 line-clamp-3 text-slate-400">Interactive AI web app classifying human activities (walking, sitting and more) from sensor data using LSTM.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">LSTM</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Sensors</span>
-                        <span class="px-2 py-0.5 text-[10px] font-mono rounded-md border border-white/10 bg-slate-800/60 text-slate-300">Streamlit</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">LSTM</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Sensors</span>
+                        <span class="px-3 py-1 text-[10px] font-mono rounded-full border border-white/10 bg-slate-800/60 text-slate-300">Streamlit</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-4 mt-auto pt-2">
+                <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Human-Activity-Recognition-Streamlit" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
                         <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
@@ -598,143 +608,150 @@
         </footer>
     </section>
 
-    <!-- ==================== SENTINEL AI MODAL ==================== -->
+    <!-- ==================== EXPLORE MODAL (SENTINEL AI) ==================== -->
     <div id="modal-sentinel" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('modal-sentinel').classList.add('hidden')"></div>
         
-        <div class="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto rounded-xl flex flex-col custom-scrollbar border border-white/10" style="background: var(--bg-color);">
+        <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl flex flex-col custom-scrollbar border border-[#22d3ee]/20 shadow-[0_0_50px_rgba(34,211,238,0.1)]" style="background: var(--bg-color);">
             
+            <!-- Modal Header -->
             <div class="sticky top-0 p-6 flex flex-col z-10 border-b border-white/10 backdrop-blur-xl bg-[#060913]/90">
                 <div class="flex justify-between items-start">
                     <span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#22d3ee]/40 bg-[#22d3ee]/10 px-3 py-1 font-mono text-[10px] tracking-[0.18em] text-[#22d3ee] uppercase">
                         <svg class="svg-icon w-3 h-3" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
                         Flagship / Graduation Project
                     </span>
-                    <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-1 rounded-sm text-slate-400 transition-colors hover:bg-white/10">
-                        <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-1.5 rounded-full border border-white/20 text-slate-400 transition-colors hover:bg-white/10 hover:text-white">
+                        <!-- Circle X icon exact match -->
+                        <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
                     </button>
                 </div>
-                <h2 class="mt-3 text-left text-xl sm:text-2xl font-bold font-display leading-tight">
-                    <span class="neon-text-cyan">Sentinel AI — Automated Traffic Accident Detection</span>
+                <h2 class="mt-4 text-left text-2xl sm:text-3xl font-bold font-display leading-tight text-[#22d3ee]">
+                    Sentinel AI — Automated Traffic Accident Detection
                 </h2>
-                <p class="mt-2 text-left text-sm leading-relaxed text-slate-400">
+                <p class="mt-3 text-left text-sm leading-relaxed text-slate-400">
                     An end-to-end AI-powered traffic safety pipeline that processes real-time video streams,
                     detects vehicular accidents, classifies ego-vehicle involvement, and generates automated
                     incident reports using Vision-Language Models.
                 </p>
             </div>
 
+            <!-- Modal Content -->
             <div class="p-6 bg-[#060913]">
                 <!-- System Architecture -->
-                <div class="mt-2">
-                    <p class="font-mono text-[10px] tracking-[0.22em] text-[#22d3ee] uppercase font-bold">
+                <div>
+                    <p class="font-mono text-[11px] tracking-[0.22em] text-[#22d3ee] uppercase font-bold mb-4">
                         System Architecture
                     </p>
-                    <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">Video Input</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">Real-time video stream</p>
+                            <p class="text-sm font-bold text-white">Video Input</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">Real-time video stream or uploaded footage</p>
                             <svg class="svg-icon absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 text-[#34d399] sm:block" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">Frame Sampling</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">16 uniform frames via OpenCV</p>
+                            <p class="text-sm font-bold text-white">Frame Sampling</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">16 uniform frames extracted via OpenCV</p>
                             <svg class="svg-icon absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 text-[#34d399] md:block" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M9.5 2h5"/><path d="M16.4 5.3a9 9 0 0 1 1.6 6.7M7.6 5.3A9 9 0 0 0 6 12M12 2v20"/><path d="M5 22h14"/><path d="M19 12A7 7 0 0 0 5 12"/></svg>
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="M9.5 2h5"/><path d="M16.4 5.3a9 9 0 0 1 1.6 6.7M7.6 5.3A9 9 0 0 0 6 12M12 2v20"/><path d="M5 22h14"/><path d="M19 12A7 7 0 0 0 5 12"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">Tier 1 Inference</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">MobileNet + LSTM detection</p>
+                            <p class="text-sm font-bold text-white">Tier 1 Inference</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">MobileNet + LSTM sequential crash detection</p>
                             <svg class="svg-icon absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 text-[#34d399] sm:block" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">Tier 2 Inference</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">Ego-vehicle classification</p>
+                            <p class="text-sm font-bold text-white">Tier 2 Inference</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">Ego-vehicle involvement classification</p>
                             <svg class="svg-icon absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 text-[#34d399] sm:block" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center sm:col-span-2 md:col-span-2">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center sm:col-span-2 md:col-span-1">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">Gemini Flash API</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">VLM keyframe reasoning & summary</p>
+                            <p class="text-sm font-bold text-white">Gemini Flash API</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">VLM keyframe reasoning & summary</p>
+                            <svg class="svg-icon absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 text-[#34d399] md:block" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
                         </div>
-                        <div class="relative rounded-xl border border-white/10 bg-slate-900/40 p-3 text-center sm:col-span-2 md:col-span-2">
-                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg bg-[#34d399]/15 text-[#34d399]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+                        <div class="relative rounded-xl border border-white/10 bg-[#0f172a]/50 p-4 text-center sm:col-span-2 md:col-span-1">
+                            <span class="mx-auto grid w-10 h-10 place-items-center text-[#34d399] mb-2">
+                                <svg class="svg-icon w-6 h-6" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
                             </span>
-                            <p class="mt-2 text-xs font-semibold text-white">JSON API Response</p>
-                            <p class="mt-1 text-[10px] leading-snug text-slate-400">Structured incident report payload</p>
+                            <p class="text-sm font-bold text-white">JSON API Response</p>
+                            <p class="mt-1.5 text-[11px] leading-snug text-slate-400">Structured incident report payload</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Key Features -->
-                <div class="mt-6">
-                    <p class="font-mono text-[10px] tracking-[0.22em] text-[#22d3ee] uppercase font-bold">
+                <div class="mt-10">
+                    <p class="font-mono text-[11px] tracking-[0.22em] text-[#22d3ee] uppercase font-bold mb-4">
                         Key Features
                     </p>
-                    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
-                        <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4">
-                            <span class="grid w-8 h-8 place-items-center rounded-lg bg-[#22d3ee]/15 text-[#22d3ee]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-xl border border-white/10 bg-[#0f172a]/50 p-5 flex flex-col">
+                            <span class="grid w-10 h-10 place-items-center rounded-full bg-[#22d3ee]/10 text-[#22d3ee] mb-4">
+                                <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
                             </span>
-                            <p class="mt-3 text-sm font-semibold text-white">Multi-Tier AI Pipeline</p>
-                            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">Tier 1 — sequential MobileNet + LSTM for real-time crash detection. Tier 2 — ego-vehicle involvement classification.</p>
-                        </li>
-                        <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4">
-                            <span class="grid w-8 h-8 place-items-center rounded-lg bg-[#22d3ee]/15 text-[#22d3ee]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
+                            <p class="text-sm font-bold text-white">Multi-Tier AI Pipeline</p>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-400">Tier 1 — sequential MobileNet + LSTM for real-time crash detection. Tier 2 — ego-vehicle involvement classification.</p>
+                        </div>
+                        <div class="rounded-xl border border-white/10 bg-[#0f172a]/50 p-5 flex flex-col">
+                            <span class="grid w-10 h-10 place-items-center rounded-full bg-[#22d3ee]/10 text-[#22d3ee] mb-4">
+                                <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
                             </span>
-                            <p class="mt-3 text-sm font-semibold text-white">VLM Reasoning Layer</p>
-                            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">Gemini Flash API analyzes keyframes to detect context and generate structured incident summary reports.</p>
-                        </li>
-                        <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4">
-                            <span class="grid w-8 h-8 place-items-center rounded-lg bg-[#22d3ee]/15 text-[#22d3ee]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+                            <p class="text-sm font-bold text-white">VLM Reasoning Layer</p>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-400">Gemini Flash API analyses keyframes to detect context and generate structured incident summary reports.</p>
+                        </div>
+                        <div class="rounded-xl border border-white/10 bg-[#0f172a]/50 p-5 flex flex-col">
+                            <span class="grid w-10 h-10 place-items-center rounded-full bg-[#22d3ee]/10 text-[#22d3ee] mb-4">
+                                <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
                             </span>
-                            <p class="mt-3 text-sm font-semibold text-white">Low-Latency Architecture</p>
-                            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">Optimized 16-frame uniform sampling via OpenCV for ultra-fast model inference.</p>
-                        </li>
-                        <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4">
-                            <span class="grid w-8 h-8 place-items-center rounded-lg bg-[#22d3ee]/15 text-[#22d3ee]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
+                            <p class="text-sm font-bold text-white">Low-Latency Architecture</p>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-400">Optimized 16-frame uniform sampling via OpenCV for ultra-fast model inference.</p>
+                        </div>
+                        <div class="rounded-xl border border-white/10 bg-[#0f172a]/50 p-5 flex flex-col">
+                            <span class="grid w-10 h-10 place-items-center rounded-full bg-[#22d3ee]/10 text-[#22d3ee] mb-4">
+                                <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
                             </span>
-                            <p class="mt-3 text-sm font-semibold text-white">Automated Model Fetching</p>
-                            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">Seamless Hugging Face Hub integration downloads weights on initial launch.</p>
-                        </li>
-                        <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4 sm:col-span-2">
-                            <span class="grid w-8 h-8 place-items-center rounded-lg bg-[#22d3ee]/15 text-[#22d3ee]">
-                                <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+                            <p class="text-sm font-bold text-white">Automated Model Fetching</p>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-400">Seamless Hugging Face Hub integration downloads tier1_crash_detector.h5 and tier2_ego_detector.h5 on initial launch.</p>
+                        </div>
+                        <div class="rounded-xl border border-white/10 bg-[#0f172a]/50 p-5 flex flex-col sm:col-span-2">
+                            <span class="grid w-10 h-10 place-items-center rounded-full bg-[#22d3ee]/10 text-[#22d3ee] mb-4">
+                                <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
                             </span>
-                            <p class="mt-3 text-sm font-semibold text-white">Production API</p>
-                            <p class="mt-1.5 text-xs leading-relaxed text-slate-400">Built with Flask and Werkzeug, containerized with Docker for reproducible deployment.</p>
-                        </li>
-                    </ul>
+                            <p class="text-sm font-bold text-white">Production API</p>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-400">Built with Flask and Werkzeug, containerized with Docker for reproducible deployment.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Modal Actions -->
-                <div class="mt-7 flex flex-wrap gap-3">
-                    <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#22d3ee] px-5 py-2.5 text-sm font-bold font-display text-[#060913] transition-colors hover:-translate-y-0.5">
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <!-- Live Demo: Solid Cyan -->
+                    <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#22d3ee] px-6 py-3 text-sm font-bold font-display text-[#060913] transition-transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
                         <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         Live Demo
                     </a>
-                    <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-slate-800/40 text-white px-5 py-2.5 text-sm font-bold font-display transition-colors hover:bg-slate-800/80">
+                    <!-- GitHub: Dark Gray Bg, White text -->
+                    <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-[#1e293b]/80 text-white px-6 py-3 text-sm font-bold font-display transition-colors hover:bg-white/10">
                         <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         GitHub Repository
                     </a>
-                    <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-[#34d399]/50 text-[#34d399] px-5 py-2.5 text-sm font-bold font-display transition-colors hover:bg-[#34d399]/10">
+                    <!-- Hugging Face: Cyan border, Cyan text -->
+                    <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-[#22d3ee]/50 text-[#22d3ee] px-6 py-3 text-sm font-bold font-display transition-colors hover:bg-[#22d3ee]/10">
                         <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         Hugging Face Model Hub
                     </a>
