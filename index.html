@@ -30,6 +30,7 @@
 
             --glow-cyan: 0 0 0 1px color-mix(in oklab, var(--primary) 25%, transparent),
                          0 12px 45px -12px color-mix(in oklab, var(--primary) 45%, transparent);
+            --glow-emerald: 0 12px 45px -12px color-mix(in oklab, var(--accent) 50%, transparent);
             --gradient-neon: linear-gradient(120deg, var(--primary), var(--accent));
             --gradient-surface: linear-gradient(
                 145deg,
@@ -43,12 +44,33 @@
             color: var(--foreground);
             font-family: 'Inter', system-ui, sans-serif;
             overflow-x: hidden;
-            /* Exact Background Gradients from your code */
+            /* Static background elements from React */
             background-image:
                 radial-gradient(60rem 40rem at 12% -10%, color-mix(in oklab, var(--primary) 14%, transparent), transparent),
                 radial-gradient(50rem 35rem at 95% 8%, color-mix(in oklab, var(--accent) 12%, transparent), transparent),
                 linear-gradient(transparent 96%, color-mix(in oklab, var(--primary) 6%, transparent) 100%);
             background-attachment: fixed;
+        }
+
+        /* 3D Canvas Background Styling */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Radial overlay to blend canvas edges based on React __root */
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -9;
+            background: radial-gradient(ellipse at center, transparent 35%, color-mix(in oklab, var(--background) 85%, transparent) 100%);
+            pointer-events: none;
         }
 
         /* Custom Utilities */
@@ -61,10 +83,9 @@
             transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
         }
 
-        .glass:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--glow-cyan);
-            border-color: var(--primary);
+        .tilt-card:hover {
+            transform: perspective(1200px) rotateX(3deg) rotateY(-4deg) translateY(-6px);
+            box-shadow: var(--glow-emerald);
         }
 
         .neon-text {
@@ -95,11 +116,6 @@
             transform: none;
         }
 
-        /* Smooth Mouse Parallax applied via JS */
-        .parallax-element {
-            transition: transform 0.1s ease-out;
-        }
-
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--background); }
@@ -109,11 +125,15 @@
 </head>
 <body class="antialiased">
 
+    <!-- 3D Particle Field Canvas Background (from ParticleField.tsx) -->
+    <canvas id="particle-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
     <!-- ==================== HERO SECTION ==================== -->
     <section id="home" class="relative overflow-hidden px-5 pt-20 pb-16 sm:px-8 lg:pt-28">
         <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
             
-            <div class="reveal is-visible parallax-element" data-speed="1.5">
+            <div class="reveal is-visible">
                 <span class="inline-flex items-center gap-2 rounded-full border border-[var(--primary)]/40 px-4 py-2 font-mono text-xs tracking-[0.2em] uppercase" style="color: var(--primary); background: color-mix(in oklab, var(--primary) 10%, transparent);">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     Available for AI roles
@@ -167,8 +187,7 @@
                 </div>
             </div>
 
-            <!-- Avatar Container exactly as your React code -->
-            <div class="reveal is-visible flex justify-center lg:justify-end parallax-element" data-speed="-1.5">
+            <div class="reveal is-visible flex justify-center lg:justify-end">
                 <div class="relative grid h-[22rem] w-[22rem] place-items-center sm:h-[26rem] sm:w-[26rem]">
                     <div class="absolute inset-0 animate-[spin_28s_linear_infinite] rounded-full border border-dashed border-[#22d3ee]/25"></div>
                     <div class="absolute inset-6 rounded-full border border-[#22d3ee]/20"></div>
@@ -188,8 +207,7 @@
         </h2>
 
         <div class="mt-8 grid gap-5 md:grid-cols-2">
-            <!-- Education Card -->
-            <article class="reveal glass rounded-2xl p-6">
+            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <div class="flex items-center gap-3">
                     <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
                         <i data-lucide="graduation-cap" class="w-6 h-6"></i>
@@ -203,8 +221,7 @@
                 </div>
             </article>
 
-            <!-- Experience Card -->
-            <article class="reveal glass rounded-2xl p-6">
+            <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <div class="flex items-center gap-3">
                     <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
                         <i data-lucide="briefcase" class="w-6 h-6"></i>
@@ -234,7 +251,7 @@
         </h2>
 
         <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">Languages & Databases</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Python</span>
@@ -244,7 +261,7 @@
                 </div>
             </div>
             
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">ML & Deep Learning</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Predictive Modeling</span>
@@ -254,17 +271,16 @@
                 </div>
             </div>
             
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">Computer Vision & NLP</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Object Detection (YOLO)</span>
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">LLM Integration</span>
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Sentiment Analysis</span>
-                    <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Image Segmentation</span>
                 </div>
             </div>
 
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">Libraries & Frameworks</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">scikit-learn</span>
@@ -274,7 +290,7 @@
                 </div>
             </div>
 
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">Deployment & Tools</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Flask</span>
@@ -285,7 +301,7 @@
                 </div>
             </div>
 
-            <div class="reveal glass rounded-2xl p-6">
+            <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:-translate-y-1">
                 <h3 class="font-mono text-xs tracking-widest uppercase font-semibold mb-4" style="color: var(--primary);">Data Analytics & BI</h3>
                 <div class="flex flex-wrap gap-2">
                     <span class="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs" style="background: var(--secondary); color: var(--secondary-foreground);">Data Wrangling</span>
@@ -304,9 +320,8 @@
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
             <!-- 1. Flagship Project: Sentinel AI -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden group">
                 <div class="absolute top-0 right-0 px-3 py-1 rounded-bl-lg border-b border-l text-[10px] font-mono font-bold tracking-wider" style="background: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary); border-color: var(--primary);">
                     FLAGSHIP
                 </div>
@@ -314,132 +329,132 @@
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="shield-check" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Graduation Project</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Sentinel AI</h3>
-                    <p class="text-sm line-clamp-3 mb-5" style="color: var(--muted-foreground);">End-to-end traffic accident detection & automated incident reporting with MobileNet + LSTM and Gemini Flash VLM reasoning.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Graduation Project</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Sentinel AI</h3>
+                    <p class="text-xs leading-relaxed line-clamp-3 mb-5" style="color: var(--muted-foreground);">End-to-end traffic accident detection & automated incident reporting with MobileNet + LSTM and Gemini Flash VLM reasoning.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">MobileNet</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">LSTM</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">OpenCV</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Flask</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">MobileNet</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">LSTM</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">OpenCV</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Flask</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 border-t pt-4" style="border-color: var(--border);">
-                    <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i data-lucide="external-link" class="w-4 h-4"></i> Explore
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--accent);">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Explore
                     </button>
-                    <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--muted-foreground);">
-                        <i class="fa-brands fa-github text-sm"></i> GitHub
+                    <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
 
             <!-- 2. Brain Tumor -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="brain" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Deep Learning & CV</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Brain Tumor Detection</h3>
-                    <p class="text-sm mb-5 line-clamp-3" style="color: var(--muted-foreground);">MRI scan classification app with 98% accuracy and 100% Recall. Deployed as a Flask Web App.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Deep Learning & CV</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Brain Tumor Detection System</h3>
+                    <p class="text-xs leading-relaxed mb-5 line-clamp-3" style="color: var(--muted-foreground);">MRI scan classification app with 98% accuracy and 100% recall for medical safety, deployed as a Flask web app.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">CNN</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">TensorFlow</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Flask</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">CNN</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">TensorFlow</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Flask</span>
                     </div>
                 </div>
-                <div class="border-t pt-4" style="border-color: var(--border);">
-                    <a href="https://github.com/Omarmohammed99/Brain-Tumor-Detection-Web-App" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <a href="https://github.com/Omarmohammed99/Brain-Tumor-Detection-Web-App" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
 
             <!-- 3. Smart Mask Detection -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="scan-face" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">CV & IoT</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Smart Mask & Robotic Arm</h3>
-                    <p class="text-sm mb-5 line-clamp-3" style="color: var(--muted-foreground);">Real-time MobileNetV2 face mask detection integrated with a robotic arm setup.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Computer Vision & IoT</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Smart Mask Detection & Robotic Arm System</h3>
+                    <p class="text-xs leading-relaxed mb-5 line-clamp-3" style="color: var(--muted-foreground);">Real-time OpenCV and fine-tuned MobileNetV2 face mask detection (<50ms latency) integrated with a robotic arm setup.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">OpenCV</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">IoT</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">MobileNetV2</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">MobileNetV2</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">OpenCV</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">IoT</span>
                     </div>
                 </div>
-                <div class="border-t pt-4" style="border-color: var(--border);">
-                    <a href="https://github.com/Omarmohammed99/Face-and-Mask-Detector" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <a href="https://github.com/Omarmohammed99/Face-and-Mask-Detector" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
 
             <!-- 4. Global Education -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="globe-2" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">EDA & Data Analytics</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Global Education & Economy</h3>
-                    <p class="text-sm mb-5 line-clamp-3" style="color: var(--muted-foreground);">Cleaned & merged 10,000+ records across 190+ countries showing literacy-to-GDP correlations.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">EDA & Data Analytics (ETL)</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Global Education & Economy Analysis</h3>
+                    <p class="text-xs leading-relaxed mb-5 line-clamp-3" style="color: var(--muted-foreground);">Cleaned and merged 10,000+ records across 190+ countries surfacing literacy-to-GDP correlations.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Pandas</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Streamlit</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Plotly</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Pandas</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Streamlit</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Plotly</span>
                     </div>
                 </div>
-                <div class="border-t pt-4" style="border-color: var(--border);">
-                    <a href="https://github.com/Omarmohammed99/How-Education-Drives-Economic-Growth" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <a href="https://github.com/Omarmohammed99/How-Education-Drives-Economic-Growth" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
 
             <!-- 5. DL Insights Engine -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="message-square-text" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">NLP & Sentiment Analysis</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Customer Insights Engine</h3>
-                    <p class="text-sm mb-5 line-clamp-3" style="color: var(--muted-foreground);">Text polarity classification app comparing LinearSVC pipeline vs Bidirectional LSTM for IMDb reviews.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">NLP & Sentiment Analysis</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Deep Learning Customer Insights Engine</h3>
+                    <p class="text-xs leading-relaxed mb-5 line-clamp-3" style="color: var(--muted-foreground);">Text polarity classification app comparing a LinearSVC pipeline against a Bidirectional LSTM on IMDb reviews.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">NLP</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">BiLSTM</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Scikit-Learn</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">NLP</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">BiLSTM</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Scikit-Learn</span>
                     </div>
                 </div>
-                <div class="border-t pt-4" style="border-color: var(--border);">
-                    <a href="https://github.com/Omarmohammed99/Deep-Learning-Customer-Insights-Engine" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <a href="https://github.com/Omarmohammed99/Deep-Learning-Customer-Insights-Engine" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
 
             <!-- 6. Human Activity -->
-            <div class="reveal glass rounded-2xl p-6 flex flex-col justify-between group">
+            <div class="reveal glass tilt-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div>
                     <div class="h-32 mb-5 rounded-xl flex items-center justify-center border" style="background: var(--card); border-color: var(--border);">
                         <i data-lucide="activity" class="w-12 h-12 transition duration-500 group-hover:scale-110" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Sensor AI & Streamlit</h4>
-                    <h3 class="text-xl font-bold text-white mb-2">Human Activity Recognition</h3>
-                    <p class="text-sm mb-5 line-clamp-3" style="color: var(--muted-foreground);">Interactive AI web app built with Streamlit and LSTM classifying human activities from sensor data.</p>
+                    <h4 class="text-[10px] font-mono font-semibold uppercase tracking-widest mb-2" style="color: var(--accent);">Sensor AI & Streamlit</h4>
+                    <h3 class="text-base font-semibold text-white mb-2">Human Activity Recognition</h3>
+                    <p class="text-xs leading-relaxed mb-5 line-clamp-3" style="color: var(--muted-foreground);">Interactive AI web app classifying human activities (walking, sitting and more) from sensor data using LSTM.</p>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">LSTM</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Streamlit</span>
-                        <span class="px-2 py-1 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Sensors</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">LSTM</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Streamlit</span>
+                        <span class="px-2 py-0.5 text-[10px] rounded border" style="background: var(--secondary); border-color: var(--border); color: var(--secondary-foreground);">Sensors</span>
                     </div>
                 </div>
-                <div class="border-t pt-4" style="border-color: var(--border);">
-                    <a href="https://github.com/Omarmohammed99/Human-Activity-Recognition-Streamlit" target="_blank" class="text-sm font-semibold flex items-center gap-1 transition-colors hover:text-white" style="color: var(--primary);">
-                        <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                <div class="flex flex-wrap items-center gap-4 mt-5">
+                    <a href="https://github.com/Omarmohammed99/Human-Activity-Recognition-Streamlit" target="_blank" class="font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-colors hover:underline" style="color: var(--primary);">
+                        <i class="fa-brands fa-github text-[11px]"></i> View on GitHub
                     </a>
                 </div>
             </div>
@@ -448,183 +463,207 @@
     </section>
 
     <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="px-5 py-16 sm:px-8 max-w-6xl mx-auto mb-12">
-        <h2 class="reveal text-3xl md:text-4xl font-bold text-white mb-4">
+    <section id="contact" class="px-5 py-16 sm:px-8 max-w-5xl mx-auto mb-12">
+        <span class="reveal inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.22em] text-primary uppercase">
+            <i data-lucide="send" class="w-3 h-3"></i> Contact
+        </span>
+
+        <h2 class="reveal mt-4 text-left text-3xl font-bold sm:text-4xl">
             Let's Build Something <span class="neon-text">Intelligent</span>
         </h2>
-        <p class="reveal text-base mb-10 max-w-xl" style="color: var(--muted-foreground);">Available for AI, Machine Learning, and Data Science roles across Egypt, Qatar, and remote.</p>
+        <p class="reveal mt-3 max-w-xl text-muted-foreground" style="color: var(--muted-foreground);">
+            Available for AI, Machine Learning and Data Science roles across Egypt, Qatar and remote.
+        </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="mt-8 grid gap-5 md:grid-cols-2">
             <!-- Direct Contact -->
-            <div class="reveal glass p-8 rounded-2xl">
-                <h3 class="text-sm font-mono font-semibold uppercase tracking-widest mb-6" style="color: var(--primary);">Direct</h3>
-                <div class="space-y-4">
-                    <a href="mailto:ommo9745@gmail.com" class="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:bg-white/5" style="border-color: var(--border);">
-                        <i data-lucide="mail" class="w-5 h-5" style="color: var(--accent);"></i>
-                        <span class="text-white font-medium">ommo9745@gmail.com</span>
+            <div class="reveal glass rounded-2xl p-6">
+                <h3 class="font-mono text-xs tracking-[0.22em] uppercase" style="color: var(--primary);">Direct</h3>
+                <div class="mt-4 grid gap-3">
+                    <a href="mailto:ommo9745@gmail.com" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i data-lucide="mail" class="w-4 h-4 shrink-0"></i> ommo9745@gmail.com
                     </a>
-                    <div class="flex items-center gap-4 p-4 rounded-xl border" style="border-color: var(--border); background: var(--secondary);">
-                        <i data-lucide="phone" class="w-5 h-5" style="color: var(--accent);"></i>
-                        <span class="text-white">+20 1095106878 (EG)</span>
-                    </div>
-                    <div class="flex items-center gap-4 p-4 rounded-xl border" style="border-color: var(--border); background: var(--secondary);">
-                        <i data-lucide="phone" class="w-5 h-5" style="color: var(--accent);"></i>
-                        <span class="text-white">+974 66907132 (QA)</span>
-                    </div>
-                    <a href="mailto:ommo9745@gmail.com" class="w-full mt-6 py-3.5 rounded-xl font-semibold transition-transform hover:-translate-y-1 flex justify-center items-center gap-2 text-[#070b14] shadow-[var(--glow-cyan)]" style="background: var(--primary);">
-                        <i data-lucide="send-ring" class="w-4 h-4"></i> Email Me
+                    <a href="tel:+201095106878" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i data-lucide="phone" class="w-4 h-4 shrink-0"></i> +20 1095106878 (EG)
+                    </a>
+                    <a href="tel:+97466907132" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i data-lucide="phone" class="w-4 h-4 shrink-0"></i> +974 66907132 (QA)
                     </a>
                 </div>
+                <a href="mailto:ommo9745@gmail.com" class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-transform hover:-translate-y-0.5 text-[#070b14] shadow-[var(--glow-cyan)]" style="background: var(--primary);">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Email Me
+                </a>
             </div>
 
             <!-- Elsewhere -->
-            <div class="reveal glass p-8 rounded-2xl flex flex-col justify-between">
-                <div>
-                    <h3 class="text-sm font-mono font-semibold uppercase tracking-widest mb-6" style="color: var(--primary);">Elsewhere</h3>
-                    <div class="space-y-4">
-                        <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--primary)] hover:bg-white/5" style="border-color: var(--border);">
-                            <i class="fa-brands fa-linkedin text-xl" style="color: var(--muted-foreground);"></i>
-                            <span class="text-white font-medium">LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/Omarmohammed99" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--primary)] hover:bg-white/5" style="border-color: var(--border);">
-                            <i class="fa-brands fa-github text-xl" style="color: var(--muted-foreground);"></i>
-                            <span class="text-white font-medium">GitHub</span>
-                        </a>
-                        <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--primary)] hover:bg-white/5" style="border-color: var(--border);">
-                            <i class="fa-brands fa-kaggle text-xl" style="color: var(--muted-foreground);"></i>
-                            <span class="text-white font-medium">Kaggle</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <a href="EgyCV.pdf" download class="w-full py-3.5 rounded-xl border transition-colors flex items-center justify-center gap-2 font-semibold hover:bg-[var(--accent)]/10" style="border-color: var(--accent); color: var(--accent);">
-                        <i data-lucide="download" class="w-4 h-4"></i> Download Resume
+            <div class="reveal glass rounded-2xl p-6">
+                <h3 class="font-mono text-xs tracking-[0.22em] uppercase" style="color: var(--accent);">Elsewhere</h3>
+                <div class="mt-4 grid gap-3">
+                    <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i class="fa-brands fa-linkedin text-base shrink-0"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/Omarmohammed99" target="_blank" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i class="fa-brands fa-github text-base shrink-0"></i> GitHub
+                    </a>
+                    <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex items-center gap-2.5 rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]" style="border-color: var(--border); background: color-mix(in oklab, var(--secondary) 50%, transparent); color: var(--secondary-foreground);">
+                        <i class="fa-brands fa-kaggle text-base shrink-0"></i> Kaggle
                     </a>
                 </div>
+                <a href="EgyCV.pdf" download="Omar_Mohamed_Ibrahim_CV.pdf" target="_blank" class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold border transition-colors hover:bg-[var(--accent)]/10" style="border-color: color-mix(in oklab, var(--accent) 50%, transparent); color: var(--accent);">
+                    <i data-lucide="download" class="w-4 h-4"></i> Download Resume
+                </a>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="border-t pt-8 pb-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm px-5 sm:px-8 max-w-6xl mx-auto" style="border-color: var(--border); color: var(--muted-foreground);">
-        <p>&copy; 2026 Omar Mohamed Ibrahim - AI & Data Scientist</p>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-2 rounded-full border transition-colors hover:text-white" style="border-color: var(--border); background: var(--secondary);">
-            <i data-lucide="arrow-up" class="w-4 h-4"></i>
-        </button>
-    </footer>
+        <footer class="mt-10 flex flex-col items-center gap-5 border-t pt-8 sm:flex-row sm:justify-between" style="border-color: var(--border);">
+            <p class="font-mono text-xs" style="color: var(--muted-foreground);">
+                © 2026 Omar Mohamed Ibrahim — AI & Data Scientist
+            </p>
+            <div class="flex items-center gap-3">
+                <a href="#home" aria-label="Back to top" class="glass grid h-10 w-10 place-items-center rounded-xl transition-colors hover:text-[var(--accent)]" style="color: var(--muted-foreground);">
+                    <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </footer>
+    </section>
 
     <!-- ==================== SENTINEL AI MODAL ==================== -->
     <div id="modal-sentinel" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 backdrop-blur-md" style="background: color-mix(in oklab, var(--background) 85%, transparent);" onclick="document.getElementById('modal-sentinel').classList.add('hidden')"></div>
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('modal-sentinel').classList.add('hidden')"></div>
         
-        <!-- Modal Content -->
-        <div class="relative glass w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl flex flex-col custom-scrollbar" style="background: var(--card);">
+        <div class="relative glass w-full max-w-3xl max-h-[88vh] overflow-y-auto rounded-lg flex flex-col custom-scrollbar border" style="background: var(--background); border-color: color-mix(in oklab, var(--primary) 30%, transparent);">
             
-            <div class="sticky top-0 backdrop-blur-lg border-b p-6 flex justify-between items-start z-10" style="background: color-mix(in oklab, var(--card) 90%, transparent); border-color: var(--border);">
-                <div>
-                    <span class="px-2 py-1 rounded text-[10px] font-mono tracking-widest uppercase mb-2 inline-block border" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent); border-color: color-mix(in oklab, var(--accent) 30%, transparent);">Flagship / Graduation Project</span>
-                    <h2 class="text-2xl font-bold text-white leading-tight">Sentinel AI — Automated Traffic Accident Detection</h2>
+            <div class="sticky top-0 p-6 flex flex-col z-10 border-b backdrop-blur-xl" style="border-color: var(--border);">
+                <div class="flex justify-between items-start">
+                    <span class="inline-flex w-fit items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.18em] uppercase" style="border-color: color-mix(in oklab, var(--primary) 30%, transparent); background: color-mix(in oklab, var(--primary) 10%, transparent); color: var(--primary);">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i> Flagship / Graduation Project
+                    </span>
+                    <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-1 rounded-sm transition-colors hover:bg-white/10" style="color: var(--muted-foreground);">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
                 </div>
-                <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-2 rounded-lg transition-colors hover:text-white" style="background: var(--secondary); color: var(--muted-foreground);">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
+                <h2 class="mt-3 text-left text-xl sm:text-2xl font-bold leading-tight">
+                    <span class="neon-text">Sentinel AI — Automated Traffic Accident Detection</span>
+                </h2>
+                <p class="mt-2 text-left text-sm leading-relaxed" style="color: var(--muted-foreground);">
+                    An end-to-end AI-powered traffic safety pipeline that processes real-time video streams,
+                    detects vehicular accidents, classifies ego-vehicle involvement, and generates automated
+                    incident reports using Vision-Language Models.
+                </p>
             </div>
 
-            <div class="p-6 space-y-6">
-                <p style="color: var(--muted-foreground);">An end-to-end AI-powered traffic safety pipeline that processes real-time video streams, detects vehicular accidents, classifies ego-vehicle involvement, and generates automated incident reports using Vision-Language Models.</p>
-                
-                <!-- Accordion 1: Architecture -->
-                <div class="border rounded-xl overflow-hidden" style="border-color: var(--border); background: var(--secondary);">
-                    <button class="w-full p-4 flex items-center justify-between text-left transition-colors hover:bg-white/5" onclick="toggleAccordion('acc-arch')">
-                        <span class="font-mono text-sm font-semibold uppercase tracking-widest" style="color: var(--primary);">System Architecture</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4" style="color: var(--muted-foreground);"></i>
-                    </button>
-                    <div id="acc-arch" class="hidden p-4 pt-0 border-t" style="border-color: var(--border);">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                            <!-- Flowchart items -->
-                            <div class="p-3 border rounded-lg text-center" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="video" class="w-6 h-6 mx-auto mb-2" style="color: var(--accent);"></i>
-                                <h5 class="text-sm font-bold text-white">Video Input</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">Real-time video stream</p>
-                            </div>
-                            <div class="p-3 border rounded-lg text-center relative" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="chevron-right" class="w-4 h-4 absolute -left-3 top-1/2 -translate-y-1/2 hidden sm:block" style="color: var(--muted-foreground);"></i>
-                                <i data-lucide="copy" class="w-6 h-6 mx-auto mb-2" style="color: var(--accent);"></i>
-                                <h5 class="text-sm font-bold text-white">Frame Sampling</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">16 uniform frames via OpenCV</p>
-                            </div>
-                            <div class="p-3 border rounded-lg text-center relative" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="chevron-right" class="w-4 h-4 absolute -left-3 top-1/2 -translate-y-1/2 hidden md:block" style="color: var(--muted-foreground);"></i>
-                                <i data-lucide="cpu" class="w-6 h-6 mx-auto mb-2" style="color: var(--primary);"></i>
-                                <h5 class="text-sm font-bold text-white">Tier 1 Inference</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">MobileNet + LSTM detection</p>
-                            </div>
-                            <div class="p-3 border rounded-lg text-center relative" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="chevron-right" class="w-4 h-4 absolute -left-3 top-1/2 -translate-y-1/2 hidden sm:block" style="color: var(--muted-foreground);"></i>
-                                <i data-lucide="car" class="w-6 h-6 mx-auto mb-2" style="color: var(--primary);"></i>
-                                <h5 class="text-sm font-bold text-white">Tier 2 Inference</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">Ego-vehicle classification</p>
-                            </div>
-                            <div class="p-3 border rounded-lg text-center relative sm:col-span-2 md:col-span-2" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="bot" class="w-6 h-6 mx-auto mb-2 text-purple-400"></i>
-                                <h5 class="text-sm font-bold text-white">Gemini Flash API</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">VLM keyframe reasoning</p>
-                            </div>
-                            <div class="p-3 border rounded-lg text-center relative sm:col-span-2 md:col-span-2" style="border-color: var(--border); background: var(--card);">
-                                <i data-lucide="braces" class="w-6 h-6 mx-auto mb-2 text-amber-400"></i>
-                                <h5 class="text-sm font-bold text-white">JSON API Response</h5>
-                                <p class="text-[10px] mt-1" style="color: var(--muted-foreground);">Structured incident report</p>
-                            </div>
+            <div class="p-6">
+                <!-- System Architecture -->
+                <div class="mt-2">
+                    <p class="font-mono text-[10px] tracking-[0.22em] uppercase" style="color: var(--primary);">
+                        System Architecture
+                    </p>
+                    <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                        <div class="relative rounded-xl border p-3 text-center" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="video" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">Video Input</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">Real-time video stream</p>
+                            <i data-lucide="chevron-right" class="absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 sm:block" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="relative rounded-xl border p-3 text-center" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="film" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">Frame Sampling</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">16 uniform frames via OpenCV</p>
+                            <i data-lucide="chevron-right" class="absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 md:block" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="relative rounded-xl border p-3 text-center" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="brain" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">Tier 1 Inference</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">MobileNet + LSTM detection</p>
+                            <i data-lucide="chevron-right" class="absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 sm:block" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="relative rounded-xl border p-3 text-center" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="car" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">Tier 2 Inference</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">Ego-vehicle classification</p>
+                            <i data-lucide="chevron-right" class="absolute top-1/2 -right-3 hidden w-4 h-4 -translate-y-1/2 sm:block" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="relative rounded-xl border p-3 text-center sm:col-span-2 md:col-span-2" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="bot" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">Gemini Flash API</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">VLM keyframe reasoning & summary</p>
+                        </div>
+                        <div class="relative rounded-xl border p-3 text-center sm:col-span-2 md:col-span-2" style="border-color: color-mix(in oklab, var(--primary) 25%, transparent); background: color-mix(in oklab, var(--background) 60%, transparent);">
+                            <span class="mx-auto grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);">
+                                <i data-lucide="braces" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-2 text-xs font-semibold text-white">JSON API Response</p>
+                            <p class="mt-1 text-[10px] leading-snug" style="color: var(--muted-foreground);">Structured incident report payload</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Accordion 2: Features -->
-                <div class="border rounded-xl overflow-hidden" style="border-color: var(--border); background: var(--secondary);">
-                    <button class="w-full p-4 flex items-center justify-between text-left transition-colors hover:bg-white/5" onclick="toggleAccordion('acc-feat')">
-                        <span class="font-mono text-sm font-semibold uppercase tracking-widest" style="color: var(--primary);">Key Features</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4" style="color: var(--muted-foreground);"></i>
-                    </button>
-                    <div id="acc-feat" class="hidden p-4 pt-0 border-t" style="border-color: var(--border);">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                            <div class="p-4 rounded-lg border" style="border-color: var(--border); background: var(--card);">
-                                <div class="w-8 h-8 rounded flex items-center justify-center mb-3" style="background: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary);"><i data-lucide="layers" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Multi-Tier AI Pipeline</h4>
-                                <p class="text-xs" style="color: var(--muted-foreground);">Tier 1 sequential MobileNet + LSTM for real-time crash detection. Tier 2 ego-vehicle involvement classification.</p>
-                            </div>
-                            <div class="p-4 rounded-lg border" style="border-color: var(--border); background: var(--card);">
-                                <div class="w-8 h-8 rounded flex items-center justify-center mb-3" style="background: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary);"><i data-lucide="message-square" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">VLM Reasoning Layer</h4>
-                                <p class="text-xs" style="color: var(--muted-foreground);">Gemini Flash API analyzes keyframes to detect context and generate structured incident summary reports.</p>
-                            </div>
-                            <div class="p-4 rounded-lg border" style="border-color: var(--border); background: var(--card);">
-                                <div class="w-8 h-8 rounded flex items-center justify-center mb-3" style="background: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary);"><i data-lucide="gauge" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Low-Latency Architecture</h4>
-                                <p class="text-xs" style="color: var(--muted-foreground);">Optimized 16-frame uniform sampling via OpenCV for ultra-fast model inference.</p>
-                            </div>
-                            <div class="p-4 rounded-lg border" style="border-color: var(--border); background: var(--card);">
-                                <div class="w-8 h-8 rounded flex items-center justify-center mb-3" style="background: color-mix(in oklab, var(--primary) 20%, transparent); color: var(--primary);"><i data-lucide="server" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Production API</h4>
-                                <p class="text-xs" style="color: var(--muted-foreground);">Built with Flask and Werkzeug, containerized with Docker for reproducible deployment.</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Key Features -->
+                <div class="mt-5">
+                    <p class="font-mono text-[10px] tracking-[0.22em] uppercase" style="color: var(--accent);">
+                        Key Features
+                    </p>
+                    <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+                        <li class="rounded-xl border p-4" style="border-color: var(--border); background: color-mix(in oklab, var(--background) 50%, transparent);">
+                            <span class="grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
+                                <i data-lucide="layers" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-3 text-sm font-semibold text-white">Multi-Tier AI Pipeline</p>
+                            <p class="mt-1.5 text-xs leading-relaxed" style="color: var(--muted-foreground);">Tier 1 — sequential MobileNet + LSTM for real-time crash detection. Tier 2 — ego-vehicle involvement classification.</p>
+                        </li>
+                        <li class="rounded-xl border p-4" style="border-color: var(--border); background: color-mix(in oklab, var(--background) 50%, transparent);">
+                            <span class="grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
+                                <i data-lucide="message-square-text" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-3 text-sm font-semibold text-white">VLM Reasoning Layer</p>
+                            <p class="mt-1.5 text-xs leading-relaxed" style="color: var(--muted-foreground);">Gemini Flash API analyzes keyframes to detect context and generate structured incident summary reports.</p>
+                        </li>
+                        <li class="rounded-xl border p-4" style="border-color: var(--border); background: color-mix(in oklab, var(--background) 50%, transparent);">
+                            <span class="grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
+                                <i data-lucide="gauge" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-3 text-sm font-semibold text-white">Low-Latency Architecture</p>
+                            <p class="mt-1.5 text-xs leading-relaxed" style="color: var(--muted-foreground);">Optimized 16-frame uniform sampling via OpenCV for ultra-fast model inference.</p>
+                        </li>
+                        <li class="rounded-xl border p-4" style="border-color: var(--border); background: color-mix(in oklab, var(--background) 50%, transparent);">
+                            <span class="grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
+                                <i data-lucide="cloud-download" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-3 text-sm font-semibold text-white">Automated Model Fetching</p>
+                            <p class="mt-1.5 text-xs leading-relaxed" style="color: var(--muted-foreground);">Seamless Hugging Face Hub integration downloads weights on initial launch.</p>
+                        </li>
+                        <li class="rounded-xl border p-4 sm:col-span-2" style="border-color: var(--border); background: color-mix(in oklab, var(--background) 50%, transparent);">
+                            <span class="grid w-8 h-8 place-items-center rounded-lg" style="background: color-mix(in oklab, var(--primary) 15%, transparent); color: var(--primary);">
+                                <i data-lucide="server" class="w-4 h-4"></i>
+                            </span>
+                            <p class="mt-3 text-sm font-semibold text-white">Production API</p>
+                            <p class="mt-1.5 text-xs leading-relaxed" style="color: var(--muted-foreground);">Built with Flask and Werkzeug, containerized with Docker for reproducible deployment.</p>
+                        </li>
+                    </ul>
                 </div>
 
-            </div>
-
-            <!-- Modal Footer / Actions -->
-            <div class="p-6 border-t flex flex-wrap gap-3 mt-auto rounded-b-2xl" style="border-color: var(--border); background: color-mix(in oklab, var(--card) 90%, transparent);">
-                <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="px-5 py-2.5 rounded-lg font-semibold transition-transform hover:-translate-y-0.5 flex items-center gap-2 text-sm text-[#070b14] shadow-[var(--glow-cyan)]" style="background: var(--primary);">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Demo
-                </a>
-                <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="px-5 py-2.5 rounded-lg border text-white transition-colors hover:bg-white/10 flex items-center gap-2 text-sm" style="border-color: var(--border);">
-                    <i class="fa-brands fa-github text-sm"></i> GitHub
-                </a>
-                <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="px-5 py-2.5 rounded-lg border transition-colors flex items-center gap-2 text-sm hover:bg-[var(--accent)]/10" style="border-color: var(--accent); color: var(--accent);">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> Hugging Face Model Hub
-                </a>
+                <!-- Modal Actions -->
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors text-[#070b14]" style="background: var(--primary);">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Live Demo
+                    </a>
+                    <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors text-white" style="background: var(--secondary);">
+                        <i class="fa-brands fa-github text-sm"></i> GitHub Repository
+                    </a>
+                    <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--accent)]/10" style="border-color: color-mix(in oklab, var(--accent) 50%, transparent); color: var(--accent);">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Hugging Face Model Hub
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -649,25 +688,106 @@
             revealOnScroll(); // Trigger on load
         });
 
-        // Elegant Mouse Parallax (Moves elements slightly based on mouse position)
-        document.addEventListener("mousemove", (e) => {
-            document.querySelectorAll(".parallax-element").forEach((el) => {
-                const speed = el.getAttribute("data-speed");
-                const x = (window.innerWidth - e.pageX * speed) / 100;
-                const y = (window.innerHeight - e.pageY * speed) / 100;
-                el.style.transform = `translateX(${x}px) translateY(${y}px)`;
-            });
+        // 3D Particle Field Logic (Converted from React to Vanilla JS)
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        
+        let w, h, dpr, raf;
+        let mx = 0, my = 0;
+        
+        const count = window.innerWidth < 768 ? 60 : 110;
+        const points = Array.from({ length: count }, () => ({
+            x: Math.random() * 2 - 1,
+            y: Math.random() * 2 - 1,
+            z: Math.random() * 2 - 1,
+            vx: (Math.random() - 0.5) * 0.0012,
+            vy: (Math.random() - 0.5) * 0.0012,
+            vz: (Math.random() - 0.5) * 0.0012,
+        }));
+
+        const resize = () => {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = Math.floor(w * dpr);
+            canvas.height = Math.floor(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+        resize();
+        window.addEventListener("resize", resize);
+
+        // Track mouse to tilt the 3D field
+        window.addEventListener("pointermove", (e) => {
+            mx = (e.clientX / window.innerWidth - 0.5) * 0.6;
+            my = (e.clientY / window.innerHeight - 0.5) * 0.6;
         });
 
-        // Accordion Toggle Script for Modal
-        function toggleAccordion(id) {
-            const el = document.getElementById(id);
-            if(el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
+        let angle = 0;
+        const project = (p) => {
+            const ay = angle + mx;
+            const ax = my;
+            let x = p.x * Math.cos(ay) - p.z * Math.sin(ay);
+            let z = p.x * Math.sin(ay) + p.z * Math.cos(ay);
+            const y = p.y * Math.cos(ax) - z * Math.sin(ax);
+            z = p.y * Math.sin(ax) + z * Math.cos(ax);
+            const persp = 1.8 / (2.6 + z);
+            const scale = Math.min(w, h) * 0.85;
+            return { sx: w / 2 + x * scale * persp, sy: h / 2 + y * scale * persp, d: persp };
+        };
+
+        const draw = () => {
+            ctx.clearRect(0, 0, w, h);
+            if (!reduceMotion) angle += 0.0012;
+
+            const proj = points.map((p) => {
+                if (!reduceMotion) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.z += p.vz;
+                    if (p.x > 1 || p.x < -1) p.vx *= -1;
+                    if (p.y > 1 || p.y < -1) p.vy *= -1;
+                    if (p.z > 1 || p.z < -1) p.vz *= -1;
+                }
+                return project(p);
+            });
+
+            // Draw connecting lines
+            for (let i = 0; i < proj.length; i++) {
+                const a1 = proj[i];
+                for (let j = i + 1; j < proj.length; j++) {
+                    const b1 = proj[j];
+                    const dx = a1.sx - b1.sx;
+                    const dy = a1.sy - b1.sy;
+                    const dist = Math.hypot(dx, dy);
+                    const max = Math.min(w, h) * 0.16;
+                    if (dist < max) {
+                        const a = (1 - dist / max) * 0.28 * ((a1.d + b1.d) / 1.4);
+                        ctx.strokeStyle = `rgba(34, 211, 238, ${a})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath();
+                        ctx.moveTo(a1.sx, a1.sy);
+                        ctx.lineTo(b1.sx, b1.sy);
+                        ctx.stroke();
+                    }
+                }
             }
-        }
+
+            // Draw nodes
+            for (const p of proj) {
+                const r = Math.max(0.6, p.d * 1.9);
+                ctx.beginPath();
+                ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(52, 211, 153, ${Math.min(0.9, p.d * 0.9)})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "rgba(34, 211, 238, 0.55)";
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            raf = requestAnimationFrame(draw);
+        };
+        raf = requestAnimationFrame(draw);
     </script>
 </body>
 </html>
