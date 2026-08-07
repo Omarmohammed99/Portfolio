@@ -7,690 +7,276 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: '#070b14',
-                        card: 'rgba(15, 23, 42, 0.6)',
-                        cyan: { 400: '#22d3ee', 500: '#06b6d4' },
-                        emerald: { 400: '#34d399', 500: '#10b981' }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- FontAwesome for Official Brand Logos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- tsParticles for Advanced 3D Parallax Background -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js"></script>
-    
     <style>
+        /* Exact Colors and Variables from your React Code */
+        :root {
+            --radius: 0.9rem;
+            --background: oklch(0.16 0.026 250);
+            --foreground: oklch(0.96 0.01 220);
+            --card: oklch(0.21 0.028 250);
+            --primary: oklch(0.82 0.15 195);
+            --secondary: oklch(0.27 0.03 250);
+            --muted: oklch(0.26 0.028 250);
+            --muted-foreground: oklch(0.72 0.024 240);
+            --accent: oklch(0.78 0.17 160);
+            --border: oklch(0.34 0.03 245);
+
+            --glow-cyan: 0 0 0 1px color-mix(in oklab, var(--primary) 25%, transparent),
+                         0 12px 45px -12px color-mix(in oklab, var(--primary) 45%, transparent);
+            --gradient-neon: linear-gradient(120deg, var(--primary), var(--accent));
+            --gradient-surface: linear-gradient(
+                145deg,
+                color-mix(in oklab, var(--card) 92%, transparent),
+                color-mix(in oklab, var(--background) 82%, transparent)
+            );
+        }
+
         body {
-            background-color: #070b14;
-            color: #e2e8f0;
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: 'Inter', system-ui, sans-serif;
             overflow-x: hidden;
+            /* Exact Background Gradients from your code */
+            background-image:
+                radial-gradient(60rem 40rem at 12% -10%, color-mix(in oklab, var(--primary) 14%, transparent), transparent),
+                radial-gradient(50rem 35rem at 95% 8%, color-mix(in oklab, var(--accent) 12%, transparent), transparent),
+                linear-gradient(transparent 96%, color-mix(in oklab, var(--primary) 6%, transparent) 100%);
         }
-        /* 3D Background Container */
-        #particles-js {
-            position: fixed;
-            width: 120%; 
-            height: 120%;
-            top: -10%;
-            left: -10%;
-            z-index: -1;
-            background-image: radial-gradient(circle at 50% 50%, #0d1627 0%, #070b14 100%);
+
+        /* Custom Utilities */
+        .glass {
+            background: var(--gradient-surface);
+            border: 1px solid color-mix(in oklab, var(--primary) 16%, var(--border));
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            box-shadow: 0 20px 60px -30px oklch(0 0 0 / 0.9);
         }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(34, 211, 238, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(34, 211, 238, 0.4);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
-        }
+
         .neon-text {
-            text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .neon-text-emerald {
-            text-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
         }
-        .avatar-glow {
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.4), inset 0 0 20px rgba(52, 211, 153, 0.2);
+
+        .animate-float {
+            animation: float-slow 7s ease-in-out infinite;
         }
-        .badge {
-            background: rgba(34, 211, 238, 0.1);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            color: #22d3ee;
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #070b14; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #22d3ee; }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Smooth Mouse Parallax applied via JS */
+        .parallax-element {
+            transition: transform 0.1s ease-out;
+        }
     </style>
 </head>
-<body class="font-sans antialiased text-slate-300 selection:bg-cyan-500 selection:text-white">
+<body class="antialiased">
 
-    <!-- 3D Animated Background -->
-    <div id="particles-js"></div>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="relative overflow-hidden px-5 pt-20 pb-16 sm:px-8 lg:pt-28">
+        <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+            
+            <div class="reveal is-visible parallax-element" data-speed="1.5">
+                <span class="inline-flex items-center gap-2 rounded-full border border-[var(--primary)]/40 px-4 py-2 font-mono text-xs tracking-[0.2em] uppercase" style="color: var(--primary);">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    Available for AI roles
+                </span>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-24">
-
-        <!-- ==================== HERO SECTION ==================== -->
-        <section class="flex flex-col-reverse md:flex-row items-center justify-between gap-12 mb-24">
-            <div class="w-full md:w-3/5 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-mono tracking-wider uppercase">
-                    <i data-lucide="sparkles" class="w-3 h-3"></i> Available for AI Roles
-                </div>
-                
-                <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight">
-                    Omar Mohamed <br><span class="text-cyan-400 neon-text">Ibrahim</span>
+                <h1 class="mt-8 text-5xl leading-[1.05] font-bold sm:text-7xl">
+                    Omar Mohamed
+                    <br />
+                    <span class="neon-text">Ibrahim</span>
                 </h1>
-                
-                <div class="flex flex-wrap items-center gap-4 text-sm font-mono text-cyan-300">
-                    <span class="font-semibold text-emerald-400 neon-text-emerald">AI & Data Scientist</span>
-                    <span class="text-slate-500">|</span>
-                    <span>Computer Science Graduate</span>
-                </div>
-                
-                <div class="flex gap-6 text-sm text-slate-400 font-medium">
-                    <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i> Cairo, Egypt</span>
-                    <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i> Doha, Qatar</span>
-                </div>
 
-                <p class="text-slate-300 leading-relaxed text-base max-w-2xl border-l-2 border-cyan-500/30 pl-4">
-                    Recent Computer Science graduate & AI/Data Scientist specializing in designing scalable backend architectures and integrating Generative AI (LLMs/VLMs) into real-time applications. Adept at building end-to-end pipelines—from edge data ingestion to cloud inference—with strict latency constraints.
+                <p class="mt-6 font-mono text-lg tracking-tight" style="color: var(--primary);">
+                    AI & Data Scientist &nbsp;|&nbsp; Computer Science Graduate
                 </p>
 
-                <!-- Actions -->
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#contact" class="px-6 py-3 rounded-full bg-cyan-500 text-slate-900 font-semibold hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(34,211,238,0.5)] flex items-center gap-2">
+                <p class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm" style="color: var(--muted-foreground);">
+                    <span class="inline-flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-4 h-4" style="color: var(--accent);"></i> Cairo, Egypt
+                    </span>
+                    <span class="inline-flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-4 h-4" style="color: var(--accent);"></i> Doha, Qatar
+                    </span>
+                </p>
+
+                <p class="mt-6 max-w-xl text-base leading-relaxed" style="color: var(--muted-foreground);">
+                    Recent Computer Science graduate & AI/Data Scientist specializing in designing scalable
+                    backend architectures and integrating Generative AI (LLMs/VLMs) into real-time applications.
+                    Adept at building end-to-end pipelines—from edge data ingestion to cloud inference—with strict
+                    latency constraints.
+                </p>
+
+                <div class="mt-9 flex flex-wrap gap-4">
+                    <a href="#contact" class="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-[#070b14] shadow-[var(--glow-cyan)] transition-transform hover:-translate-y-0.5" style="background: var(--primary);">
                         <i data-lucide="mail" class="w-4 h-4"></i> Get In Touch
                     </a>
-                    <a href="#projects" class="px-6 py-3 rounded-full border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 transition flex items-center gap-2">
-                        <i data-lucide="code" class="w-4 h-4"></i> View Projects
+                    <a href="#projects" class="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/50 px-7 py-3.5 text-sm font-semibold transition-colors hover:bg-[var(--accent)]/10" style="color: var(--accent);">
+                        <i data-lucide="rocket" class="w-4 h-4"></i> View Projects
                     </a>
                 </div>
 
-                <!-- Social Links -->
-                <div class="flex items-center gap-4 pt-4">
-                    <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-400 transition glass-card">
-                        <i class="fa-brands fa-linkedin-in text-lg"></i>
+                <div class="mt-9 flex flex-wrap items-center gap-4">
+                    <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="grid w-12 h-12 place-items-center rounded-full border border-[var(--border)] transition-all hover:-translate-y-1 hover:border-[var(--primary)]" style="color: var(--muted-foreground);">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://github.com/Omarmohammed99" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-400 transition glass-card">
-                        <i class="fa-brands fa-github text-lg"></i>
+                    <a href="https://github.com/Omarmohammed99" target="_blank" class="grid w-12 h-12 place-items-center rounded-full border border-[var(--border)] transition-all hover:-translate-y-1 hover:border-[var(--primary)]" style="color: var(--muted-foreground);">
+                        <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-400 transition glass-card font-bold font-mono text-lg">
-                        <i class="fa-brands fa-kaggle text-lg"></i>
+                    <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="grid w-12 h-12 place-items-center rounded-full border border-[var(--border)] transition-all hover:-translate-y-1 hover:border-[var(--primary)]" style="color: var(--muted-foreground);">
+                        <!-- Exact SVG you provided for Kaggle -->
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.071.335" />
+                        </svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Avatar -->
-            <div class="w-full md:w-2/5 flex justify-center">
-                <div class="relative w-72 h-72 rounded-full p-2 bg-gradient-to-tr from-cyan-500/40 to-emerald-500/40 avatar-glow backdrop-blur-md">
-                    <div class="w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-[#070b14] flex items-center justify-center">
-                        <img src="WhatsApp Image 2026-07-29 at 8.24.50 AM.jpeg" alt="Omar Mohamed Ibrahim" class="w-full h-full object-cover object-top">
+            <!-- Avatar Container exactly as your React code -->
+            <div class="reveal is-visible flex justify-center lg:justify-end parallax-element" data-speed="-1.5">
+                <div class="relative grid h-[22rem] w-[22rem] place-items-center sm:h-[26rem] sm:w-[26rem]">
+                    <div class="absolute inset-0 animate-[spin_28s_linear_infinite] rounded-full border border-dashed border-[#22d3ee]/25"></div>
+                    <div class="absolute inset-6 rounded-full border border-[#22d3ee]/20"></div>
+                    <div class="absolute inset-10 rounded-full opacity-70 blur-2xl" style="background: var(--gradient-neon);"></div>
+                    <div class="animate-float relative h-[15rem] w-[15rem] overflow-hidden rounded-full border border-[#22d3ee]/40 shadow-[var(--glow-cyan)] sm:h-[18rem] sm:w-[18rem]">
+                        <img src="WhatsApp Image 2026-07-29 at 8.24.50 AM.jpeg" alt="Portrait of Omar Mohamed Ibrahim" class="h-full w-full object-cover object-top" />
                     </div>
                 </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== EDUCATION & EXPERIENCE ==================== -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-2">
-                Education & <span class="text-emerald-400 neon-text-emerald">Experience</span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Education Card -->
-                <div class="glass-card rounded-2xl p-6 flex items-start gap-4 h-full">
-                    <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 mt-1 border border-cyan-500/20">
-                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">B.Sc. in Computer Science</h3>
-                        <p class="text-sm text-slate-400 mt-1 font-mono">Future University in Egypt • 2022 – 2026 • GPA: 3.1</p>
-                    </div>
-                </div>
-                <!-- Experience Card -->
-                <div class="glass-card rounded-2xl p-6 flex items-start gap-4 h-full">
-                    <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 mt-1 border border-emerald-500/20">
-                        <i data-lucide="briefcase" class="w-6 h-6"></i>
-                    </div>
-                    <div class="w-full">
-                        <h3 class="text-lg font-bold text-white">Data Analysis Trainee</h3>
-                        <p class="text-sm text-slate-400 mt-1 font-mono mb-4">AITB • Jul 2025 – Aug 2025</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs rounded-full badge">Python</span>
-                            <span class="px-3 py-1 text-xs rounded-full badge">Power BI</span>
-                            <span class="px-3 py-1 text-xs rounded-full badge">EDA</span>
-                            <span class="px-3 py-1 text-xs rounded-full badge">ETL Pipelines</span>
-                            <span class="px-3 py-1 text-xs rounded-full badge">Data Analysis</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== TECHNICAL SKILLS ==================== -->
-        <section class="mb-24">
-            <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-2">
-                Technical <span class="text-cyan-400 neon-text">Skills</span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Skill Category 1 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">Languages & Databases</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Python</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">R</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">SQL (MySQL)</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">MS SQL Server</span>
-                    </div>
-                </div>
-                <!-- Skill Category 2 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">ML & Deep Learning</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Predictive Modeling</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Feature Engineering</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Regression</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Classification</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">CNN / RNN / LSTM</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Transfer Learning</span>
-                    </div>
-                </div>
-                <!-- Skill Category 3 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">Computer Vision & NLP</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Object Detection (YOLO)</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Image Segmentation</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Sentiment Analysis</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Prompt Engineering</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">LLM Integration</span>
-                    </div>
-                </div>
-                <!-- Skill Category 4 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">Libraries & Frameworks</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">scikit-learn</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">TensorFlow</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">OpenCV</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Pandas / NumPy</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Matplotlib / Seaborn</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">BeautifulSoup / Selenium</span>
-                    </div>
-                </div>
-                <!-- Skill Category 5 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">Deployment & Tools</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Flask</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Streamlit</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Hugging Face</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Docker</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Git</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Vercel</span>
-                    </div>
-                </div>
-                <!-- Skill Category 6 -->
-                <div class="glass-card rounded-xl p-6">
-                    <h4 class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-4">Data Analytics & BI</h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Data Wrangling</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">ETL Pipelines</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Power BI</span>
-                        <span class="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10">Tableau</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== SELECTED PROJECTS ==================== -->
-        <section id="projects" class="mb-24 relative">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-emerald-500/30 text-emerald-400 text-xs font-mono tracking-wider uppercase mb-4">
-                <i data-lucide="layout-grid" class="w-3 h-3"></i> Portfolio
-            </div>
-            <h2 class="text-3xl font-bold text-white mb-8">Selected Projects</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- 1. Flagship Project: Sentinel AI -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.1)] relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-mono px-3 py-1 rounded-bl-lg border-b border-l border-cyan-500/30">
-                        FLAGSHIP
-                    </div>
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-12 h-12 text-cyan-400 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">Flagship / Graduation Project</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Sentinel AI</h3>
-                        <p class="text-sm text-slate-400 line-clamp-3 mb-4">End-to-end traffic accident detection & automated incident reporting with MobileNet + LSTM and Gemini Flash VLM reasoning.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">MobileNet</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">LSTM</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">OpenCV</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Flask</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 border-t border-white/10 pt-4">
-                        <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i data-lucide="external-link" class="w-4 h-4"></i> Explore
-                        </button>
-                        <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="text-sm font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 2. Brain Tumor -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="brain" class="w-12 h-12 text-cyan-500 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">Deep Learning & CV</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Brain Tumor Detection</h3>
-                        <p class="text-sm text-slate-400 mb-4 line-clamp-3">MRI scan classification app with 98% accuracy and 100% Recall. Deployed as a Flask Web App.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">CNN</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">TensorFlow</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Flask</span>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <a href="https://github.com/Omarmohammed99/Brain-Tumor-Detection-Web-App" target="_blank" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 3. Smart Mask Detection -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="scan-face" class="w-12 h-12 text-cyan-500 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">CV & IoT</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Smart Mask & Robotic Arm</h3>
-                        <p class="text-sm text-slate-400 mb-4 line-clamp-3">Real-time MobileNetV2 face mask detection (<50ms latency) integrated with a robotic arm setup.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">OpenCV</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">IoT</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">MobileNetV2</span>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <a href="https://github.com/Omarmohammed99/Face-and-Mask-Detector" target="_blank" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 4. Global Education -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="globe-2" class="w-12 h-12 text-cyan-500 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">EDA & Data Analytics</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Global Education & Economy</h3>
-                        <p class="text-sm text-slate-400 mb-4 line-clamp-3">Cleaned & merged 10,000+ records across 190+ countries showing literacy-to-GDP correlations.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Pandas</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Streamlit</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Plotly</span>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <a href="https://github.com/Omarmohammed99/How-Education-Drives-Economic-Growth" target="_blank" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 5. DL Insights Engine -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="message-square-text" class="w-12 h-12 text-cyan-500 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">NLP & Sentiment Analysis</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Customer Insights Engine</h3>
-                        <p class="text-sm text-slate-400 mb-4 line-clamp-3">Text polarity classification app comparing LinearSVC pipeline vs Bidirectional LSTM for IMDb reviews.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">NLP</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">BiLSTM</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Scikit-Learn</span>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <a href="https://github.com/Omarmohammed99/Deep-Learning-Customer-Insights-Engine" target="_blank" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 6. Human Activity -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
-                    <div>
-                        <div class="h-32 mb-4 rounded-lg bg-[#0d1521] border border-white/5 flex items-center justify-center">
-                            <i data-lucide="activity" class="w-12 h-12 text-cyan-500 group-hover:scale-110 transition duration-500"></i>
-                        </div>
-                        <h4 class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-widest mb-2">Sensor AI & Streamlit</h4>
-                        <h3 class="text-xl font-bold text-white mb-2">Human Activity Recognition</h3>
-                        <p class="text-sm text-slate-400 mb-4 line-clamp-3">Interactive AI web app built with Streamlit and LSTM classifying human activities from sensor data.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">LSTM</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Streamlit</span>
-                            <span class="px-2 py-1 text-[10px] rounded bg-white/5 border border-white/10">Sensors</span>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <a href="https://github.com/Omarmohammed99/Human-Activity-Recognition-Streamlit" target="_blank" class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition">
-                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- ==================== CONTACT SECTION ==================== -->
-        <section id="contact" class="mb-12 relative pt-12">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-cyan-500/30 text-cyan-400 text-xs font-mono tracking-wider uppercase mb-6 justify-start">
-                <i data-lucide="send" class="w-3 h-3"></i> Contact
-            </div>
-            
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                Let's Build Something <span class="text-cyan-400 neon-text">Intelligent</span>
-            </h2>
-            <p class="text-slate-400 mb-10 max-w-xl">Available for AI, Machine Learning, and Data Science roles across Egypt, Qatar, and remote.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Direct Contact Details -->
-                <div class="glass-card p-8 rounded-2xl">
-                    <h3 class="text-sm font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-6">Direct</h3>
-                    <div class="space-y-4">
-                        <a href="mailto:ommo9745@gmail.com" class="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-cyan-400/50 hover:bg-white/5 transition">
-                            <i data-lucide="mail" class="w-5 h-5 text-emerald-400"></i>
-                            <span class="text-slate-200">ommo9745@gmail.com</span>
-                        </a>
-                        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5">
-                            <i data-lucide="phone" class="w-5 h-5 text-emerald-400"></i>
-                            <span class="text-slate-200">+20 1095106878 (EG)</span>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5">
-                            <i data-lucide="phone" class="w-5 h-5 text-emerald-400"></i>
-                            <span class="text-slate-200">+974 66907132 (QA)</span>
-                        </div>
-                        <a href="mailto:ommo9745@gmail.com" class="w-full mt-4 py-3 rounded-xl bg-cyan-500 text-slate-900 font-semibold hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(34,211,238,0.3)] flex justify-center items-center gap-2">
-                            <i data-lucide="send-ring" class="w-4 h-4"></i> Email Me
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Elsewhere / Socials -->
-                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-sm font-mono font-semibold text-cyan-400 uppercase tracking-widest mb-6">Elsewhere</h3>
-                        <div class="space-y-4">
-                            <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-cyan-400/50 hover:bg-white/5 transition">
-                                <i class="fa-brands fa-linkedin text-xl text-slate-400"></i>
-                                <span class="text-slate-200 font-medium">LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/Omarmohammed99" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-cyan-400/50 hover:bg-white/5 transition">
-                                <i class="fa-brands fa-github text-xl text-slate-400"></i>
-                                <span class="text-slate-200 font-medium">GitHub</span>
-                            </a>
-                            <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex items-center gap-4 p-4 rounded-xl border border-white/10 hover:border-cyan-400/50 hover:bg-white/5 transition">
-                                <i class="fa-brands fa-kaggle text-xl text-slate-400"></i>
-                                <span class="text-slate-200 font-medium">Kaggle</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="EgyCV.pdf" download class="w-full py-3 rounded-xl border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 transition flex items-center justify-center gap-2">
-                            <i data-lucide="download" class="w-4 h-4"></i> Download Resume
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="mt-20 border-t border-white/10 pt-8 pb-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-            <p>&copy; 2026 Omar Mohamed Ibrahim - AI & Data Scientist</p>
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-2 rounded-full border border-white/10 hover:bg-white/5 transition">
-                <i data-lucide="arrow-up" class="w-4 h-4"></i>
-            </button>
-        </footer>
-
-    </div>
-
-    <!-- ==================== SENTINEL AI MODAL ==================== -->
-    <div id="modal-sentinel" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-[#070b14]/80 backdrop-blur-md" onclick="document.getElementById('modal-sentinel').classList.add('hidden')"></div>
-        
-        <!-- Modal Content -->
-        <div class="relative glass-card bg-[#0d1624] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-cyan-500/30 shadow-[0_0_40px_rgba(34,211,238,0.15)] flex flex-col custom-scrollbar">
-            
-            <div class="sticky top-0 bg-[#0d1624]/90 backdrop-blur-lg border-b border-white/10 p-6 flex justify-between items-start z-10">
-                <div>
-                    <span class="px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-mono tracking-widest uppercase mb-2 inline-block">Flagship / Graduation Project</span>
-                    <h2 class="text-2xl font-bold text-white leading-tight">Sentinel AI — Automated Traffic Accident Detection</h2>
-                </div>
-                <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <div class="p-6 space-y-6">
-                <p class="text-slate-300">An end-to-end AI-powered traffic safety pipeline that processes real-time video streams, detects vehicular accidents, classifies ego-vehicle involvement, and generates automated incident reports using Vision-Language Models.</p>
-                
-                <!-- Accordion 1: Architecture -->
-                <div class="border border-white/10 rounded-xl overflow-hidden bg-white/5">
-                    <button class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion('acc-arch')">
-                        <span class="font-mono text-sm font-semibold text-cyan-400 uppercase tracking-widest">System Architecture</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
-                    </button>
-                    <div id="acc-arch" class="hidden p-4 pt-0 border-t border-white/10">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                            <!-- Flowchart items -->
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center">
-                                <i data-lucide="video" class="w-6 h-6 text-emerald-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">Video Input</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">Real-time video stream or uploaded footage</p>
-                            </div>
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center relative">
-                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 absolute -left-3 top-1/2 -translate-y-1/2 hidden sm:block"></i>
-                                <i data-lucide="copy" class="w-6 h-6 text-emerald-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">Frame Sampling</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">16 uniform frames extracted via OpenCV</p>
-                            </div>
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center relative">
-                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 absolute -left-3 top-1/2 -translate-y-1/2 hidden md:block"></i>
-                                <i data-lucide="cpu" class="w-6 h-6 text-cyan-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">Tier 1 Inference</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">MobileNet + LSTM sequential crash detection</p>
-                            </div>
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center relative">
-                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 absolute -left-3 top-1/2 -translate-y-1/2 hidden sm:block"></i>
-                                <i data-lucide="car" class="w-6 h-6 text-cyan-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">Tier 2 Inference</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">Ego-vehicle involvement classification</p>
-                            </div>
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center relative sm:col-span-2 md:col-span-2">
-                                <i data-lucide="bot" class="w-6 h-6 text-purple-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">Gemini Flash API</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">VLM keyframe reasoning & summary</p>
-                            </div>
-                            <div class="p-3 border border-white/10 rounded-lg bg-black/20 text-center relative sm:col-span-2 md:col-span-2">
-                                <i data-lucide="braces" class="w-6 h-6 text-amber-400 mx-auto mb-2"></i>
-                                <h5 class="text-sm font-bold text-white">JSON API Response</h5>
-                                <p class="text-[10px] text-slate-400 mt-1">Structured incident report payload</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accordion 2: Features -->
-                <div class="border border-white/10 rounded-xl overflow-hidden bg-white/5">
-                    <button class="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion('acc-feat')">
-                        <span class="font-mono text-sm font-semibold text-cyan-400 uppercase tracking-widest">Key Features</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
-                    </button>
-                    <div id="acc-feat" class="hidden p-4 pt-0 border-t border-white/10">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                            <div class="p-4 rounded-lg bg-black/20 border border-white/5">
-                                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="layers" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Multi-Tier AI Pipeline</h4>
-                                <p class="text-xs text-slate-400">Tier 1 — sequential MobileNet + LSTM for real-time crash detection. Tier 2 — ego-vehicle involvement classification.</p>
-                            </div>
-                            <div class="p-4 rounded-lg bg-black/20 border border-white/5">
-                                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="message-square" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">VLM Reasoning Layer</h4>
-                                <p class="text-xs text-slate-400">Gemini Flash API analyzes keyframes to detect context and generate structured incident summary reports.</p>
-                            </div>
-                            <div class="p-4 rounded-lg bg-black/20 border border-white/5">
-                                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="gauge" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Low-Latency Architecture</h4>
-                                <p class="text-xs text-slate-400">Optimized 16-frame uniform sampling via OpenCV for ultra-fast model inference.</p>
-                            </div>
-                            <div class="p-4 rounded-lg bg-black/20 border border-white/5">
-                                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="cloud-download" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Automated Model Fetching</h4>
-                                <p class="text-xs text-slate-400">Seamless Hugging Face Hub integration downloads weights on initial launch.</p>
-                            </div>
-                            <div class="p-4 rounded-lg bg-black/20 border border-white/5 md:col-span-2">
-                                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="server" class="w-4 h-4"></i></div>
-                                <h4 class="text-white font-bold mb-1">Production API</h4>
-                                <p class="text-xs text-slate-400">Built with Flask and Werkzeug, containerized with Docker for reproducible deployment.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Modal Footer / Actions -->
-            <div class="p-6 border-t border-white/10 bg-[#0d1624]/90 flex flex-wrap gap-3 mt-auto rounded-b-2xl">
-                <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="px-5 py-2.5 rounded-lg bg-cyan-500 text-slate-900 font-semibold hover:bg-cyan-400 transition flex items-center gap-2 text-sm">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Demo
-                </a>
-                <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="px-5 py-2.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition flex items-center gap-2 text-sm">
-                    <i class="fa-brands fa-github text-sm"></i> GitHub Repository
-                </a>
-                <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="px-5 py-2.5 rounded-lg border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10 transition flex items-center gap-2 text-sm">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> Hugging Face Model Hub
-                </a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Script Implementations -->
+    <!-- ==================== EDUCATION & EXPERIENCE ==================== -->
+    <section id="background" class="px-5 py-16 sm:px-8">
+        <div class="mx-auto max-w-6xl">
+            <h2 class="reveal text-3xl font-bold sm:text-4xl">
+                Education & <span class="neon-text">Experience</span>
+            </h2>
+
+            <div class="mt-8 grid gap-5 md:grid-cols-2">
+                <article class="reveal glass rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1">
+                    <div class="flex items-center gap-3">
+                        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#22d3ee]/15 text-[#22d3ee]">
+                            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                        </span>
+                        <div>
+                            <h3 class="text-base font-semibold">B.Sc. in Computer Science</h3>
+                            <p class="mt-0.5 font-mono text-xs" style="color: var(--muted-foreground);">
+                                Future University in Egypt • 2022 – 2026 • GPA: 3.1
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal glass rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1">
+                    <div class="flex items-center gap-3">
+                        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#34d399]/15 text-[#34d399]">
+                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                        </span>
+                        <div>
+                            <h3 class="text-base font-semibold">Data Analysis Trainee</h3>
+                            <p class="mt-0.5 font-mono text-xs" style="color: var(--muted-foreground);">
+                                AITB • Jul 2025 – Aug 2025
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Python</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Power BI</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">EDA</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">ETL Pipelines</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Data Analysis</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- ==================== TECHNICAL SKILLS ==================== -->
+            <h2 class="reveal mt-16 text-3xl font-bold sm:text-4xl">
+                Technical <span class="neon-text">Skills</span>
+            </h2>
+
+            <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="reveal glass rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1">
+                    <h3 class="font-mono text-xs tracking-widest uppercase" style="color: var(--primary);">Languages & Databases</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Python</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">R</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">SQL (MySQL)</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">MS SQL Server</span>
+                    </div>
+                </div>
+                
+                <div class="reveal glass rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1">
+                    <h3 class="font-mono text-xs tracking-widest uppercase" style="color: var(--primary);">ML & Deep Learning</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Predictive Modeling</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">CNN / RNN / LSTM</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Feature Engineering</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Transfer Learning</span>
+                    </div>
+                </div>
+                
+                <div class="reveal glass rounded-2xl p-5 transition-transform duration-500 hover:-translate-y-1">
+                    <h3 class="font-mono text-xs tracking-widest uppercase" style="color: var(--primary);">Computer Vision & NLP</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">YOLO Object Detection</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">LLM Integration</span>
+                        <span class="rounded-lg border border-[var(--border)] bg-[#1e293b]/60 px-2.5 py-1 text-xs text-white">Sentiment Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
-        // Initialize Lucide Icons
+        // Initialize Icons
         lucide.createIcons();
 
-        // Accordion Toggle Script
-        function toggleAccordion(id) {
-            const el = document.getElementById(id);
-            if(el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
-        }
+        // Reveal Animation Logic
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                reveals.forEach((reveal) => {
+                    const revealTop = reveal.getBoundingClientRect().top;
+                    if (revealTop < windowHeight - 50) {
+                        reveal.classList.add("is-visible");
+                    }
+                });
+            };
+            window.addEventListener("scroll", revealOnScroll);
+            revealOnScroll(); // Trigger on load
+        });
 
-        // Advanced 3D Parallax Network Background configured exactly for depth and interaction
-        tsParticles.load("particles-js", {
-            fpsLimit: 120,
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "grab", // Creates links to the cursor giving a strong interactive 3D feel
-                        parallax: {
-                            enable: true,
-                            force: 100, // Increased for deeper 3D movement
-                            smooth: 15
-                        }
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 200,
-                        links: {
-                            opacity: 0.5,
-                            color: "#22d3ee"
-                        }
-                    }
-                }
-            },
-            particles: {
-                color: { 
-                    value: ["#22d3ee", "#34d399", "#1e293b", "#ffffff"] 
-                },
-                links: {
-                    color: "#22d3ee",
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.15,
-                    width: 1.5,
-                    triangles: {
-                        enable: true, // Adds faint 3D polygons between connections
-                        opacity: 0.03
-                    }
-                },
-                move: {
-                    enable: true,
-                    speed: 1, // Smooth drifting
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    outModes: "out"
-                },
-                number: {
-                    density: { enable: true, area: 1000 },
-                    value: 80
-                },
-                opacity: { 
-                    value: { min: 0.1, max: 0.5 }, // Varying opacity creates depth
-                    animation: { enable: true, speed: 1, minimumValue: 0.1 }
-                },
-                size: { 
-                    value: { min: 1, max: 4 }, // Varying sizes for Z-axis depth illusion
-                    animation: { enable: true, speed: 2, minimumValue: 1 }
-                }
-            },
-            detectRetina: true
+        // Elegant Mouse Parallax (Moves elements slightly based on mouse position)
+        document.addEventListener("mousemove", (e) => {
+            document.querySelectorAll(".parallax-element").forEach((el) => {
+                const speed = el.getAttribute("data-speed");
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                el.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
         });
     </script>
 </body>
