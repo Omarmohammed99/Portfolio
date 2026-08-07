@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omar Mohamed Ibrahim | AI & Data Scientist</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,13 +25,17 @@
             }
         }
     </script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <!-- FontAwesome for Official Brand Logos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- tsParticles for 3D Parallax Background -->
+    
+    <!-- tsParticles for Advanced 3D Parallax Background -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js"></script>
     
     <style>
@@ -39,12 +44,13 @@
             color: #e2e8f0;
             overflow-x: hidden;
         }
+        /* 3D Background Container */
         #particles-js {
             position: fixed;
-            width: 110%; /* Slightly larger to hide edges during 3D movement */
-            height: 110%;
-            top: -5%;
-            left: -5%;
+            width: 120%; 
+            height: 120%;
+            top: -10%;
+            left: -10%;
             z-index: -1;
             background-image: radial-gradient(circle at 50% 50%, #0d1627 0%, #070b14 100%);
         }
@@ -141,7 +147,6 @@
             <div class="w-full md:w-2/5 flex justify-center">
                 <div class="relative w-72 h-72 rounded-full p-2 bg-gradient-to-tr from-cyan-500/40 to-emerald-500/40 avatar-glow backdrop-blur-md">
                     <div class="w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-[#070b14] flex items-center justify-center">
-                        <!-- FIX: object-cover fills the circle entirely with no side spaces -->
                         <img src="WhatsApp Image 2026-07-29 at 8.24.50 AM.jpeg" alt="Omar Mohamed Ibrahim" class="w-full h-full object-cover object-top">
                     </div>
                 </div>
@@ -165,7 +170,7 @@
                         <p class="text-sm text-slate-400 mt-1 font-mono">Future University in Egypt • 2022 – 2026 • GPA: 3.1</p>
                     </div>
                 </div>
-                <!-- Experience Card (Badges Only) -->
+                <!-- Experience Card -->
                 <div class="glass-card rounded-2xl p-6 flex items-start gap-4 h-full">
                     <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 mt-1 border border-emerald-500/20">
                         <i data-lucide="briefcase" class="w-6 h-6"></i>
@@ -623,58 +628,66 @@
             }
         }
 
-        // Modern 3D Parallax Network Background using tsParticles
+        // Advanced 3D Parallax Network Background configured exactly for depth and interaction
         tsParticles.load("particles-js", {
             fpsLimit: 120,
             interactivity: {
                 events: {
                     onHover: {
                         enable: true,
-                        mode: "repulse",
+                        mode: "grab", // Creates links to the cursor giving a strong interactive 3D feel
                         parallax: {
                             enable: true,
-                            force: 60,
-                            smooth: 10
+                            force: 100, // Increased for deeper 3D movement
+                            smooth: 15
                         }
                     },
                     resize: true
                 },
                 modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4
+                    grab: {
+                        distance: 200,
+                        links: {
+                            opacity: 0.5,
+                            color: "#22d3ee"
+                        }
                     }
                 }
             },
             particles: {
                 color: { 
-                    value: ["#22d3ee", "#34d399", "#1e293b"] 
+                    value: ["#22d3ee", "#34d399", "#1e293b", "#ffffff"] 
                 },
                 links: {
                     color: "#22d3ee",
-                    distance: 160,
+                    distance: 150,
                     enable: true,
                     opacity: 0.15,
-                    width: 1.5
+                    width: 1.5,
+                    triangles: {
+                        enable: true, // Adds faint 3D polygons between connections
+                        opacity: 0.03
+                    }
                 },
                 move: {
                     enable: true,
-                    speed: 0.8,
+                    speed: 1, // Smooth drifting
                     direction: "none",
-                    random: false,
+                    random: true,
                     straight: false,
                     outModes: "out"
                 },
                 number: {
                     density: { enable: true, area: 1000 },
-                    value: 70
+                    value: 80
                 },
                 opacity: { 
-                    value: 0.4,
+                    value: { min: 0.1, max: 0.5 }, // Varying opacity creates depth
                     animation: { enable: true, speed: 1, minimumValue: 0.1 }
                 },
                 size: { 
-                    value: { min: 1, max: 3 } 
+                    value: { min: 1, max: 4 }, // Varying sizes for Z-axis depth illusion
+                    animation: { enable: true, speed: 2, minimumValue: 1 }
                 }
             },
             detectRetina: true
