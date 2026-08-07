@@ -8,26 +8,24 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Official Fonts from the Template -->
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Official Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Lucide Icons (For standard icons like mail, phone, rocket, etc) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Exact Colors, Variables and Fonts */
         :root {
-            --radius: 0.9rem;
             --bg-color: #060913; 
             --primary: #22d3ee; /* Cyan */
             --accent: #34d399; /* Emerald Green */
             --border-light: rgba(255, 255, 255, 0.08);
 
-            --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-sans: 'DM Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         body {
@@ -40,25 +38,17 @@
                 radial-gradient(50rem 35rem at 95% 8%, rgba(52, 211, 153, 0.1), transparent),
                 linear-gradient(transparent 96%, rgba(34, 211, 238, 0.05) 100%);
             background-attachment: fixed;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Typography Mapping */
-        h1, h2, h3, h4, h5, h6, .font-display {
-            font-family: var(--font-display);
-            letter-spacing: -0.02em;
-        }
+        /* Typography */
+        .font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+        .font-mono { font-family: var(--font-mono); }
+        .font-sans { font-family: var(--font-sans); }
 
-        .font-mono {
-            font-family: var(--font-mono);
-        }
-
-        /* 3D Canvas Background Styling */
+        /* 3D Canvas Background */
         #particle-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: -10;
@@ -74,7 +64,7 @@
             pointer-events: none;
         }
 
-        /* Custom Utilities */
+        /* Glass Cards */
         .glass {
             background: linear-gradient(145deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.2) 100%);
             border: 1px solid var(--border-light);
@@ -84,14 +74,11 @@
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .tilt-card {
-            transform-style: preserve-3d;
-        }
-
+        .tilt-card { transform-style: preserve-3d; }
         .tilt-card:hover {
             transform: perspective(1200px) rotateX(3deg) rotateY(-4deg) translateY(-6px);
-            box-shadow: 0 12px 45px -12px rgba(34, 211, 238, 0.2);
-            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow: 0 12px 45px -12px rgba(52, 211, 153, 0.4);
+            border-color: rgba(52, 211, 153, 0.4);
         }
 
         .neon-text-cyan {
@@ -111,52 +98,32 @@
         }
 
         .heading-glow {
-            color: rgba(255, 255, 255, 1);
+            color: rgba(255, 255, 255, 0.95);
             text-shadow: 0 2px 15px rgba(255, 255, 255, 0.15);
         }
 
         @keyframes float-slow {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-14px); }
+            50% { transform: translateY(-12px); }
         }
-
-        .animate-float {
-            animation: float-slow 7s ease-in-out infinite;
-        }
+        .animate-float { animation: float-slow 7s ease-in-out infinite; }
 
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
-        .reveal.is-visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        .parallax-element {
-            transition: transform 0.1s ease-out;
-        }
+        .reveal.is-visible { opacity: 1; transform: none; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
-        /* Direct SVG styling to ensure all icons look identical */
-        .svg-icon {
-            stroke-width: 1.5;
-            stroke: currentColor;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- 3D Particle Field Canvas Background -->
+    <!-- 3D Particle Field -->
     <canvas id="particle-canvas"></canvas>
     <div class="bg-overlay"></div>
 
@@ -164,16 +131,14 @@
     <section id="home" class="relative overflow-hidden px-5 pt-20 pb-16 sm:px-8 lg:pt-28">
         <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
             
-            <div class="reveal is-visible parallax-element" data-speed="1.5">
-                <!-- Top Badge -->
+            <div class="reveal is-visible parallax-element">
                 <span class="inline-flex items-center gap-2 rounded-full border border-[#22d3ee]/40 bg-[#22d3ee]/10 px-4 py-2 font-mono text-xs tracking-[0.2em] text-[#22d3ee] uppercase shadow-[0_0_15px_rgba(34,211,238,0.15)]">
                     <i data-lucide="sparkles" class="w-4 h-4" stroke-width="1.5"></i>
                     Available for AI roles
                 </span>
 
-                <!-- Name Title (White & Cyan) -->
-                <h1 class="mt-8 text-5xl leading-[1.05] font-bold font-display sm:text-7xl">
-                    <span class="text-white">Omar Mohamed</span>
+                <h1 class="mt-8 text-5xl leading-[1.05] font-bold font-display sm:text-7xl heading-glow">
+                    Omar Mohamed
                     <br />
                     <span class="neon-text-cyan">Ibrahim</span>
                 </h1>
@@ -182,7 +147,7 @@
                     AI & Data Scientist &nbsp;|&nbsp; Computer Science Graduate
                 </p>
 
-                <p class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-medium text-slate-400">
+                <p class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-medium text-slate-400 font-sans">
                     <span class="inline-flex items-center gap-1.5">
                         <i data-lucide="map-pin" class="w-4 h-4 text-[#34d399]" stroke-width="2"></i> Cairo, Egypt
                     </span>
@@ -191,7 +156,7 @@
                     </span>
                 </p>
 
-                <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-400">
+                <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-400 font-sans">
                     Recent Computer Science graduate & AI/Data Scientist specializing in designing scalable
                     backend architectures and integrating Generative AI (LLMs/VLMs) into real-time applications.
                     Adept at building end-to-end pipelines—from edge data ingestion to cloud inference—with strict
@@ -207,29 +172,32 @@
                     </a>
                 </div>
 
-                <!-- 5 HERO ICONS (Now using hardcoded SVGs for Brands so they never vanish) -->
+                <!-- 5 HERO ICONS (LinkedIn and GitHub explicitly rendered via SVG to prevent disappearing) -->
                 <div class="mt-9 flex flex-wrap items-center gap-4">
+                    <!-- LinkedIn Custom SVG -->
                     <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex w-[3.25rem] h-[3.25rem] items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#22d3ee] hover:text-[#22d3ee]">
-                        <!-- LinkedIn SVG -->
-                        <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                     </a>
+                    <!-- GitHub Custom SVG -->
                     <a href="https://github.com/Omarmohammed99" target="_blank" class="flex w-[3.25rem] h-[3.25rem] items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#22d3ee] hover:text-[#22d3ee]">
-                        <!-- GitHub SVG -->
-                        <svg class="svg-icon w-5 h-5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                     </a>
+                    <!-- Kaggle (k) -->
                     <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex w-[3.25rem] h-[3.25rem] items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <span class="font-mono text-[22px] leading-none mb-1 font-medium">k</span>
                     </a>
+                    <!-- Mail -->
                     <a href="mailto:ommo9745@gmail.com" class="flex w-[3.25rem] h-[3.25rem] items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <i data-lucide="mail" class="w-5 h-5" stroke-width="1.5"></i>
                     </a>
+                    <!-- Phone -->
                     <a href="tel:+201095106878" class="flex w-[3.25rem] h-[3.25rem] items-center justify-center rounded-full border border-white/10 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <i data-lucide="phone" class="w-5 h-5" stroke-width="1.5"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Avatar Container (Centered Perfectly) -->
+            <!-- Avatar Container -->
             <div class="reveal is-visible flex justify-center lg:justify-end">
                 <div class="relative grid h-[22rem] w-[22rem] place-items-center sm:h-[26rem] sm:w-[26rem]">
                     <div class="absolute inset-0 animate-[spin_28s_linear_infinite] rounded-full border border-dashed border-[#22d3ee]/30"></div>
@@ -252,12 +220,12 @@
         <div class="mt-8 grid gap-5 md:grid-cols-2">
             <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <div class="flex items-center gap-3">
-                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#22d3ee]/10 text-[#22d3ee]">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#22d3ee]/15 text-[#22d3ee]">
                         <i data-lucide="graduation-cap" class="w-6 h-6" stroke-width="1.5"></i>
                     </span>
                     <div>
                         <h3 class="text-lg font-bold font-display text-white">B.Sc. in Computer Science</h3>
-                        <p class="mt-1 font-mono text-[11px] text-slate-400">
+                        <p class="mt-1 font-mono text-xs text-slate-400">
                             Future University in Egypt • 2022 – 2026 • GPA: 3.1
                         </p>
                     </div>
@@ -266,22 +234,22 @@
 
             <article class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#34d399]/40">
                 <div class="flex items-center gap-3">
-                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#34d399]/10 text-[#34d399]">
+                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#34d399]/15 text-[#34d399]">
                         <i data-lucide="briefcase" class="w-6 h-6" stroke-width="1.5"></i>
                     </span>
                     <div>
                         <h3 class="text-lg font-bold font-display text-white">Data Analysis Trainee</h3>
-                        <p class="mt-1 font-mono text-[11px] text-slate-400">
+                        <p class="mt-1 font-mono text-xs text-slate-400">
                             AITB • Jul 2025 – Aug 2025
                         </p>
                     </div>
                 </div>
                 <div class="mt-5 flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Python</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Power BI</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">EDA</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">ETL Pipelines</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-mono bg-slate-800/60 text-slate-300">Data Analysis</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Python</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Power BI</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">EDA</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">ETL Pipelines</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono bg-slate-800/60 text-slate-300">Data Analysis</span>
                 </div>
             </article>
         </div>
@@ -297,72 +265,72 @@
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Languages & Databases</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Python</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">R</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">SQL (MySQL)</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">MS SQL Server</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Python</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">R</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">SQL (MySQL)</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">MS SQL Server</span>
                 </div>
             </div>
             
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">ML & Deep Learning</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Predictive Modeling</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Feature Engineering</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Regression</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Classification</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">CNN</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">RNN</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">LSTM</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Transfer Learning</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Predictive Modeling</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Feature Engineering</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Regression</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Classification</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">CNN</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">RNN</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">LSTM</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Transfer Learning</span>
                 </div>
             </div>
             
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Computer Vision & NLP</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Object Detection (YOLO)</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Image Segmentation</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Sentiment Analysis</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Prompt Engineering</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">LLM Integration</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Object Detection (YOLO)</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Image Segmentation</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Sentiment Analysis</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Prompt Engineering</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">LLM Integration</span>
                 </div>
             </div>
 
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Libraries & Frameworks</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">scikit-learn</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">TensorFlow</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">OpenCV</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Pandas</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">NumPy</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Matplotlib</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Seaborn</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">BeautifulSoup</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Selenium</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">scikit-learn</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">TensorFlow</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">OpenCV</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Pandas</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">NumPy</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Matplotlib</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Seaborn</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">BeautifulSoup</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Selenium</span>
                 </div>
             </div>
 
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Deployment & Tools</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Flask</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Streamlit</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Hugging Face</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Git</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Docker</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Vercel</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Flask</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Streamlit</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Hugging Face</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Git</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Docker</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Vercel</span>
                 </div>
             </div>
 
             <div class="reveal glass tilt-card rounded-2xl p-6 transition-transform duration-500 hover:border-[#22d3ee]/40">
                 <h3 class="font-mono text-[11px] tracking-[0.2em] uppercase font-bold mb-4 text-[#22d3ee]">Data Analytics & BI</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Data Wrangling</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">ETL Pipelines</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Power BI</span>
-                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-xs bg-slate-800/60 text-slate-300">Tableau</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Data Wrangling</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">ETL Pipelines</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Power BI</span>
+                    <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] bg-slate-800/60 text-slate-300">Tableau</span>
                 </div>
             </div>
         </div>
@@ -402,9 +370,9 @@
                     <button onclick="document.getElementById('modal-sentinel').classList.remove('hidden')" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#34d399]">
                         <i data-lucide="external-link" class="w-3.5 h-3.5" stroke-width="2"></i> Explore
                     </button>
-                    <!-- Hardcoded GitHub SVG -->
+                    <!-- Custom SVG GitHub link so it never breaks -->
                     <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -428,7 +396,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Brain-Tumor-Detection-Web-App" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -452,7 +420,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Face-and-Mask-Detector" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -476,7 +444,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/How-Education-Drives-Economic-Growth" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -500,7 +468,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Deep-Learning-Customer-Insights-Engine" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -523,7 +491,7 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mt-auto pt-4 border-t border-white/5">
                     <a href="https://github.com/Omarmohammed99/Human-Activity-Recognition-Streamlit" target="_blank" class="font-mono text-[11px] font-bold flex items-center gap-1.5 transition-colors hover:underline text-[#22d3ee]">
-                        <svg class="svg-icon w-3.5 h-3.5" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         View on GitHub
                     </a>
                 </div>
@@ -550,13 +518,13 @@
             <div class="reveal glass rounded-2xl p-6">
                 <h3 class="font-mono text-xs tracking-[0.22em] uppercase font-bold text-[#22d3ee]">Direct</h3>
                 <div class="mt-4 grid gap-3">
-                    <a href="mailto:ommo9745@gmail.com" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
+                    <a href="mailto:ommo9745@gmail.com" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <i data-lucide="mail" class="w-4 h-4 shrink-0" stroke-width="2"></i> ommo9745@gmail.com
                     </a>
-                    <a href="tel:+201095106878" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
+                    <a href="tel:+201095106878" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <i data-lucide="phone" class="w-4 h-4 shrink-0" stroke-width="2"></i> +20 1095106878 (EG)
                     </a>
-                    <a href="tel:+97466907132" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
+                    <a href="tel:+97466907132" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm text-slate-300 font-sans transition-colors hover:border-[#22d3ee] hover:text-[#22d3ee]">
                         <i data-lucide="phone" class="w-4 h-4 shrink-0" stroke-width="2"></i> +974 66907132 (QA)
                     </a>
                 </div>
@@ -569,15 +537,17 @@
             <div class="reveal glass rounded-2xl p-6">
                 <h3 class="font-mono text-xs tracking-[0.22em] uppercase font-bold text-[#34d399]">Elsewhere</h3>
                 <div class="mt-4 grid gap-3">
-                    <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
-                        <svg class="svg-icon w-4 h-4 shrink-0" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <a href="https://www.linkedin.com/in/omar-m-ibrahim-6167562b8" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
+                        <!-- Raw SVG LinkedIn so it never vanishes -->
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                         LinkedIn
                     </a>
-                    <a href="https://github.com/Omarmohammed99" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
-                        <svg class="svg-icon w-4 h-4 shrink-0" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                    <a href="https://github.com/Omarmohammed99" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
+                        <!-- Raw SVG GitHub so it never vanishes -->
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         GitHub
                     </a>
-                    <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f172a]/50 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
+                    <a href="https://www.kaggle.com/omarmohammed70/datasets" target="_blank" class="flex items-center gap-2.5 rounded-xl border border-white/10 bg-slate-800/30 px-4 py-3 text-sm font-medium text-slate-300 font-sans transition-colors hover:border-[#34d399] hover:text-[#34d399]">
                         <span class="font-mono text-[16px] leading-none w-4 h-4 text-center font-bold">k</span> Kaggle
                     </a>
                 </div>
@@ -613,7 +583,7 @@
                         Flagship / Graduation Project
                     </span>
                     <button onclick="document.getElementById('modal-sentinel').classList.add('hidden')" class="p-1.5 rounded-full border border-white/20 text-slate-400 transition-colors hover:bg-white/10 hover:text-white">
-                        <i data-lucide="x-circle" class="w-5 h-5" stroke-width="1.5"></i>
+                        <i data-lucide="x" class="w-4 h-4" stroke-width="1.5"></i>
                     </button>
                 </div>
                 <h2 class="mt-4 text-left text-2xl sm:text-3xl font-bold font-display leading-tight text-[#22d3ee]">
@@ -730,18 +700,15 @@
 
                 <!-- Modal Actions -->
                 <div class="mt-8 flex flex-wrap gap-4">
-                    <!-- Live Demo: Solid Cyan -->
                     <a href="https://sentinel-ai-eight-kohl.vercel.app/" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#22d3ee] px-6 py-3 text-sm font-bold font-display text-[#060913] transition-transform hover:-translate-y-0.5 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
                         <i data-lucide="external-link" class="w-4 h-4" stroke-width="2"></i>
                         Live Demo
                     </a>
-                    <!-- GitHub: Dark Gray Bg, White text -->
+                    <!-- SVG Direct rendering for GitHub Modal Action -->
                     <a href="https://github.com/Omarmohammed99/Sentinel-AI" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-[#1e293b]/80 text-white px-6 py-3 text-sm font-bold font-display transition-colors hover:bg-white/10">
-                        <!-- Direct SVG for Github -->
-                        <svg class="svg-icon w-4 h-4" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                         GitHub Repository
                     </a>
-                    <!-- Hugging Face: Cyan border, Cyan text -->
                     <a href="https://huggingface.co/spaces/omarrmohammed/Sentinel-AI-Core" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-full border border-[#22d3ee]/50 text-[#22d3ee] px-6 py-3 text-sm font-bold font-display transition-colors hover:bg-[#22d3ee]/10">
                         <i data-lucide="external-link" class="w-4 h-4" stroke-width="2"></i>
                         Hugging Face Model Hub
