@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="OM favicon">
   <circle cx="128" cy="128" r="128" fill="#000000"/>
-  <text x="24" y="163" fill="#f0eadd" font-family="Segoe UI, Arial, sans-serif" font-size="116" font-weight="800" letter-spacing="-7">OM</text>
-  <circle cx="220" cy="148" r="13" fill="#bb6545"/>
+  <text x="11" y="170" fill="#f0eadd" font-family="Segoe UI, Arial, sans-serif" font-size="116" font-weight="800" letter-spacing="-7">OM</text>
+  <circle cx="231" cy="158" r="13" fill="#bb6545"/>
 </svg>
