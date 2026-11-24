@@ -76,13 +76,13 @@ function hero() {
         <a class="text-link" href="${cvUrl}" download="Omar_Mohamed_Ibrahim_CV.pdf">Download CV ${icon('download', 15)}</a>
       </div>
       ${socialLinks(true)}
+      <p class="hero-scroll">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></p>
     </div>
     <figure class="portrait-frame" data-cursor="Explore">
       <img src="/media/omar-opera-house.jpg" alt="Omar at Cairo Opera House at night" fetchpriority="high" width="1052" height="1600" />
       <figcaption><span>CAIRO OPERA HOUSE</span><span>30°02′ N / 31°13′ E</span></figcaption>
       <div class="portrait-index">OM<br/><span>26</span></div>
     </figure>
-    <div class="hero-footnote"><span>01 — INTRODUCTION</span><span>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
   </section>`;
 }
 
@@ -131,7 +131,7 @@ function aboutSection() {
 function workSection() {
   return `<section class="work-section section-wrap" id="work" aria-labelledby="work-title">
     <div class="section-heading"><p class="eyebrow">02 / SELECTED WORK</p><span class="heading-rule"></span><span class="section-note">FOUR PROJECTS · FOUR QUESTIONS</span></div>
-    <div class="work-intro"><h2 id="work-title">Built to meet<br/><em>the real world.</em></h2><p>From incident response to road safety, each project starts with a problem worth making clearer.</p></div>
+    <div class="work-intro"><h2 id="work-title">Built to meet<br/><em>the real world.</em></h2></div>
     <div class="project-list">${projects.map(projectRow).join('')}</div>
     <div class="all-projects"><a class="button button--secondary" href="${profile}" target="_blank" rel="noreferrer">Explore All Projects on GitHub ${icon('external', 15)}</a><span>More work lives on GitHub.</span></div>
   </section>`;
